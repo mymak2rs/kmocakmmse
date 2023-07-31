@@ -9,6 +9,14 @@
 {% endblock %}
 {% block content %}
 
+{% if request.session.info %}
+{% else %}
+<script>
+    alert('환자 정보를 입력해주세요.'); 
+    window.location.replace("/main/info/");
+</script>
+{% endif %}
+
 <div style="text-align: center; width: 90%; margin: 3% auto">
     <h1>세부 항목 입력</h1>
     <form action="" method="POST" id="KForm">
