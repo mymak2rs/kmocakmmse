@@ -25,9 +25,5 @@ def mocab_LR(input):
 
 def mocad_LR(input):
     model = joblib.load('D:/DBLab/kmocakmmse/kmocakmmse/kmocakmmse/main/regression/datasetD/best_model_d.pkl')
-    scaler = joblib.load('D:/DBLab/kmoca-kmmse_main/k-moca-k-mmse/kmocakmmse/main/regression/LR/230602_KMMSE_scaler.save')
-    
-    input = scaler.transform(input)
     predict = model.predict_proba(input).round(2)*100
-    
     return predict.ravel()
