@@ -131,7 +131,37 @@
     }
 });
 
+    $("#cutoff").click(function(e) {
+        var allFilled = true;
+        // cutoff 검사에 필요한 input들만 체크
+        var fieldsToCheck = ['#patient_num', '#age', '#edu_0', '#id_edu_input', '#kmoca_total'];
+        for(var i=0; i<fieldsToCheck.length; i++) {
+            var field = $(fieldsToCheck[i]);
+            if(fieldsToCheck[i] === '#id_edu_input' && $('#edu_0').is(':checked') && field.val() == "") {
+                allFilled = false;
+                break;
+            }
+            else if(fieldsToCheck[i] !== '#id_edu_input' && field.val() == "") {
+                allFilled = false;
+                break;
+            }
+        }
+
+        if(allFilled) {
+            // 모든 항목이 채워져 있으면 confirm으로 진행 여부 묻기
+            var confirmProceed = confirm('cutoff 검사를 진행하시겠습니까?');
+            if(!confirmProceed) {
+                e.preventDefault();
+            }
+        } else {
+            // 모든 항목이 채워져 있지 않으면 alert 표시
+            alert("cutoff 검사를 위한 항목이 비어있습니다.");
+            e.preventDefault(); 
+        }
+    });
 
 </script>
 <script src="{% static 'js/info.js' %}"></script>
 {% endblock %}
+
+
