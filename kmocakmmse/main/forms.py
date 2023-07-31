@@ -21,7 +21,7 @@ class PatientForm(forms.Form):
     
     sex = forms.CharField(
         label='성별',
-        required=True,
+        required=False,
         widget=forms.RadioSelect(
             choices=choice.CHOICE_SEX,
             attrs={
@@ -90,7 +90,7 @@ class PatientForm(forms.Form):
     )
     patient_cog_compl = forms.CharField(
         label='환자가 기억력 저하를 느낍니까?',
-        required=True,
+        required=False,
         widget=forms.RadioSelect(
             choices=choice.CHOICE_YES_NO,
             attrs={
@@ -102,7 +102,7 @@ class PatientForm(forms.Form):
     )
     caregiver_cog_compl = forms.CharField(
         label='보호자가 환자의 기억력 저하를 느낍니까?',
-        required=True,
+        required=False,
         widget=forms.RadioSelect(
             choices=choice.CHOICE_YES_NO,
             attrs={
@@ -161,7 +161,7 @@ class PatientForm(forms.Form):
     )
     sgds_bdi_depression = forms.CharField(
         label='SGDS 혹은 BDI로 우울증을 진단받은 적이 있습니까?',
-        required=True,
+        required=False,
         widget=forms.RadioSelect(
             choices=choice.CHOICE_YES_NO,
             attrs={
@@ -173,7 +173,7 @@ class PatientForm(forms.Form):
     )
     hy_stage = forms.FloatField(
          label='H&Y 척도',
-        required=True,
+        required=False,
         widget=forms.NumberInput(
             attrs={
                 'class': 'hy',
@@ -184,7 +184,7 @@ class PatientForm(forms.Form):
     )
     motor_updrs_score = forms.IntegerField(
         label='Motor UPDRS (UPDRS Part III) 점수',
-        required=True,
+        required=False,
         widget=forms.NumberInput(
             attrs={
                 'class': 'updrs',
