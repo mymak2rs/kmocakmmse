@@ -19,10 +19,19 @@
         <div class="res_tbl_wrap">
             <table class="tb_margin">
                 <tr>
-                    <td>나이: 00세</td>
-                    <td>교육연한: 00년</td>
-                    <td>MoCA 총점: 00/30</td>
-                    <td>Pentagon: fail (or pass)</td>
+                    <td>나이: {{ age }}세</td>
+                    <td>교육연한: 
+                        {% if edu == 0.0 %}
+                         무학문맹
+                         {% elif edu == 0.5 %}
+                         무학문해
+                         {% else %}
+                         {{ edu }} 년
+                         {% endif %}
+
+                    </td>
+                    <td>MoCA 총점: {{ KMoCA }}/30</td>
+                    <td>Pentagon: {{ pentagon }}</td>
                 </tr>
             </table>
             
@@ -45,14 +54,14 @@
                     <tr>
                         <td scope="row" class="q">Age & education adjusted cutoffs</td>
                         <td>PD-NC VS.<br><strong>PD-MCI or PDD</strong></td>
-                        <td>00</td>
-                        <td class="r">RESULT</td>
+                        <td>{{ moca_cutoff }}</td>
+                        <td class="r">{{ result_moca }}</td>
                     </tr>
                     <tr>
                         <td scope="row" class="q">Machine learning with domain scores of MoCA plus pentagon drawing</td>
                         <td>PD-NC VS.<br><strong>PD-MCI or PDD</strong></td>
                         <td>NA</td>
-                        <td class="r">RESULT</td>
+                        <td class="r">{{ mocab_machin_decision }}<br>인지장애 확률 {{ mocab_machin_result }}%</td>
                     </tr>
                     <tr>
                         <td scope="row" class="q">Age & education adjusted cutoffs</td>
@@ -64,7 +73,7 @@
                         <td scope="row" class="q">Machine learning with domain scores of MoCA plus pentagon drawing</td>
                         <td>PD-NC or <br>PD-MCI VS. <strong>PDD</strong></td>
                         <td>NA</td>
-                        <td class="r">RESULT</td>
+                        <td class="r">{{ mocad_machin_decision }}<br>치매 확률 {{ mocad_machin_result }}%</td>
                     </tr>
                     <tr>
                         <td colspan="4" scope="row" class="q">Abbreviations: PD, Parkinson’s disease; PD-NC, PD with normal cognition; PD-MCI, PD with mild cognitive impairment; PDD, PD with dementia; NA, not applicable; MoCA, Montreal Cognitive Assessment.</td>

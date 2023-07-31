@@ -3,7 +3,8 @@ import pandas as pd
 import numpy as np
 from django.shortcuts import render, redirect
 from .forms import PatientForm, KMoCAForm
-from .module import check
+from .module import check, cutoff_norm
+from .regression import model
 
 
 # 404 page custom
@@ -161,19 +162,63 @@ def details(request):
         return render(request, 'main/details.html', context)
 
 def interpretation(request):
+    # 데이터 불러오기
     patient_info = request.session.get('patient_info')
     kmoca = request.session.get('kmoca')
     
+    # 데이터 전처리
     patient_info['sex'] = check.char2int(patient_info['sex'])
     kmoca['mc_fluency'] = 1 if int(kmoca['mc_fluency']) >= 6 else 0
     
-    del patient_info['patient_no'], patient_info['edu_input'], patient_info['kmoca_total'], patient_info['handedness'], \
-    patient_info['neurologic_problems'], patient_info['parkinson_disease'], patient_info['depression']
+    info_df = pd.DataFrame.from_dict(data=patient_info, orient='index').transpose()
+    kmoca_df = pd.DataFrame.from_dict(data=kmoca, orient='index').transpose()
     
-    del kmoca['mc_re_1'], kmoca['mc_re_2'], kmoca['mc_de_1'], kmoca['mc_de_2']
-        
-    machin_data = dict(patient_info, **kmoca)
-    machin_data = pd.DataFrame.from_dict(data=machin_data, orient='index').transpose()
-    print(machin_data)
+    moca_data = [info_df.sex, info_df.age, info_df.education, info_df.patient_cog_compl, info_df.caregiver_cog_compl, 
+                info_df.diag_duration, info_df.hy_stage, info_df.motor_updrs_score, info_df.sgds_bdi_depression
+                ]
     
-    return render(request, 'main/interpretation.html', )
+    vssp = np.sum(list(map(int,[kmoca_df.mc_atm, kmoca_df.mc_cube, kmoca_df.mc_clock_cont, kmoca_df.mc_clock_num, kmoca_df.mc_clock_hands])))
+    name = np.sum(list(map(int,[kmoca_df.mc_lion, kmoca_df.mc_bat, kmoca_df.mc_camel])))
+    attention = np.sum(list(map(int, [kmoca_df.mc_forward,kmoca_df.mc_backward, kmoca_df.mc_vigilance, kmoca_df.mc_serial_7s])))
+    language = np.sum(list(map(int, [kmoca_df.mc_sentence_1, kmoca_df.mc_sentence_2, kmoca_df.mc_fluency])))
+    abstraction = np.sum(list(map(int, [kmoca_df.mc_abstraction_1, kmoca_df.mc_abstraction_2])))
+    memory = np.sum(list(map(int, [kmoca_df.mc_face, kmoca_df.mc_silks, kmoca_df.mc_school, kmoca_df.mc_pipe, kmoca_df.mc_yellow])))
+    orientation = np.sum(list(map(int, [kmoca_df.mc_date, kmoca_df.mc_month,kmoca_df.mc_year, kmoca_df.mc_day, kmoca_df.mc_place, kmoca_df.mc_city])))
+
+    # model 예측
+    moca_data.extend([vssp, name, attention, language, abstraction, memory, orientation, kmoca_df.ms_pentagon])
+    moca_data = np.array([moca_data], dtype=float)
+    
+    mocab_machin_result = model.mocab_LR(moca_data)[1]
+    mocad_machin_result = model.mocad_LR(moca_data)[1]
+    
+    age = int(info_df.age)
+    edu = int(info_df.education)
+    moca_score = int(kmoca_df.mc_score)
+    
+    cutoff_moca, moca_zscore = cutoff_norm.MoCA_cutoff(age, edu, moca_score)
+    print(cutoff_moca)
+    
+    context = {
+                'age': age,
+                'edu': edu,
+                'KMoCA': moca_score,
+                'pentagon': 'pass' if int(kmoca_df.ms_pentagon) == 1 else 'fail',
+                'moca_cutoff': int(cutoff_moca),
+                'mocab_machin_result': str(mocab_machin_result) if kmoca else '',
+                'mocad_machin_result': str(mocad_machin_result) if kmoca else '',
+                'mocab_machin_decision': 'normal cognition',
+                'mocad_machin_decision': 'normal cognition'
+               }
+    
+    if cutoff_moca > moca_score:
+        context['result_moca'] = 'Cognitive impairment'
+    else:
+        context['result_moca'] = 'normal cognition'
+    
+    if mocab_machin_result > 50:
+        context['mocab_machin_decision'] = 'Cognitive impairment'
+    if mocad_machin_result > 50:
+        context['mocad_machin_decision'] = 'dementia'
+    
+    return render(request, 'main/interpretation.html', context)
