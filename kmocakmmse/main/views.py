@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.utils import timezone
+import pandas as pd
+import numpy as np
 from django.shortcuts import render, redirect
 from .forms import PatientForm, KMoCAForm
 from .module import check
@@ -148,7 +149,9 @@ def details(request):
                 context['mocaform']=kmoca_form
                 return render(request, 'main/details.html', context)
 
-            return redirect('myapp:machin')
+            kmoca = kmoca_form.cleaned_data
+            request.session['kmoca'] = kmoca
+            return redirect('myapp:interpretation')
                     
         else:
             context['mocaform'] = kmoca_form
@@ -158,4 +161,19 @@ def details(request):
         return render(request, 'main/details.html', context)
 
 def interpretation(request):
+    patient_info = request.session.get('patient_info')
+    kmoca = request.session.get('kmoca')
+    
+    patient_info['sex'] = check.char2int(patient_info['sex'])
+    kmoca['mc_fluency'] = 1 if int(kmoca['mc_fluency']) >= 6 else 0
+    
+    del patient_info['patient_no'], patient_info['edu_input'], patient_info['kmoca_total'], patient_info['handedness'], \
+    patient_info['neurologic_problems'], patient_info['parkinson_disease'], patient_info['depression']
+    
+    del kmoca['mc_re_1'], kmoca['mc_re_2'], kmoca['mc_de_1'], kmoca['mc_de_2']
+        
+    machin_data = dict(patient_info, **kmoca)
+    machin_data = pd.DataFrame.from_dict(data=machin_data, orient='index').transpose()
+    print(machin_data)
+    
     return render(request, 'main/interpretation.html', )

@@ -65,28 +65,6 @@ class PatientForm(forms.Form):
         )
     )
 
-    kmmse_total = forms.IntegerField(
-        label='K-MMSE 점수',
-        required=False,
-        widget=forms.NumberInput(
-            attrs={
-                'class': 'kmmse_total',
-                'placeholder': 'KMMSE 점수 입력',
-                'id': 'kmmse_total'
-            }
-        )
-    )
-    kmmse2_total = forms.IntegerField(
-        label='K-MMSE~2 점수',
-        required=False,
-        widget=forms.NumberInput(
-            attrs={
-                'class': 'kmmse2_total',
-                'placeholder': 'KMMSE~2 점수 입력',
-                'id': 'kmmse2_total'
-            }
-        )
-    )
     kmoca_total = forms.IntegerField(
         label='K-MoCA 점수',
         required=False,
@@ -95,17 +73,6 @@ class PatientForm(forms.Form):
                 'class': 'kmoca_total',
                 'placeholder': 'K-MoCA 점수 입력',
                 'id': 'kmoca_total'
-            }
-        )
-    )
-    mocak_total = forms.IntegerField(
-        label='MoCA-K 점수',
-        required=False,
-        widget=forms.NumberInput(
-            attrs={
-                'class': 'mocak_total',
-                'placeholder': 'MoCA-K 점수 입력',
-                'id': 'mocak_total'
             }
         )
     )
@@ -256,10 +223,7 @@ class PatientForm(forms.Form):
             'hy_stage',
             'motor_updrs_score',
             'sgds_score',
-            'kmmse_total',
-            'kmmse2_total',
             'kmoca_total',
-            'mocak_total',
         ]
 
 
@@ -270,10 +234,7 @@ class PatientForm(forms.Form):
         age = cleaned_data.get('age', '')
         education = cleaned_data.get('education', '')
         edu_input = cleaned_data.get('edu_input', '')
-        kmmse_total = cleaned_data.get('kmmse_total', '')
-        kmmse2_total = cleaned_data.get('kmmse2_total', '')
         kmoca_total = cleaned_data.get('kmoca_total', '')
-        mocak_total = cleaned_data.get('mocak_total', '')
         handedness = cleaned_data.get('handedness', '')
         patient_cog_compl = cleaned_data.get('patient_cog_compl', '')
         caregiver_cog_compl = cleaned_data.get('caregiver_cog_compl', '')
@@ -328,17 +289,9 @@ class PatientForm(forms.Form):
         if (sgds_score != None) and (sgds_score < 0 or sgds_score > 15):
             return self.add_error('sgds_score', 'SGDS 점수를 확인해주세요. (0 이상 15이하)')
 
-        if (not (kmmse_total == None)) and (kmmse_total > 30) | (kmmse_total < 0):
-            return self.add_error('kmmse_total', 'KMMSE 점수를 확인해주세요. (0 이상 30이하)')
-    
-        if (not (kmmse2_total == None)) and (kmmse2_total > 30) | (kmmse2_total < 0):
-            return self.add_error('kmmse2_total', 'KMMSE~2 점수를 확인해주세요. (0 이상 30이하)')
-
         if (not (kmoca_total == None)) and (kmoca_total > 30) | (kmoca_total < 0):
             return self.add_error('kmoca_total', 'K-MoCA 점수를 확인해주세요. (0 이상 30이하)')
     
-        if (not (mocak_total == None)) and (mocak_total > 30) | (mocak_total < 0):
-            return self.add_error('mocak_total', 'MoCA-K 점수를 확인해주세요. (0 이상 30이하)')
         
         self.patient_no = patient_no
         self.sex = sex
@@ -356,10 +309,7 @@ class PatientForm(forms.Form):
         self.hy_stage = hy_stage
         self.motor_updrs_score = motor_updrs_score
         self.sgds_score = sgds_score
-        self.kmmse_total = kmmse_total
-        self.kmmse2_total = kmmse2_total
         self.kmoca_total = kmoca_total
-        self.mocak_total = mocak_total
         
         
 class KMoCAForm(forms.Form):
