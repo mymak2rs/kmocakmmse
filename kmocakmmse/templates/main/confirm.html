@@ -1,0 +1,127 @@
+{% extends "main/base.html" %}
+{% load bootstrap5 %} 
+{% load static %}
+
+{% block title %} 환자 정보 확인 {% endblock %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/confirm.css' %}">
+
+{% endblock %}
+
+{% block content %}
+{% if request.session.login_session %}
+{% else %}
+<script>
+    alert('로그인이 필요한 페이지입니다.'); 
+    window.location.replace("/main/login");
+</script>
+{% endif %}
+
+{% if request.session.info %}
+{% else %}
+<script>
+    alert('환자 정보를 입력해야합니다.'); 
+    window.location.replace("/main/info");
+</script>
+{% endif %}
+
+<div class="table_div">
+    <h1>환자 정보 확인</h1>
+    <form action="" method="POST" id="my-form">
+        {% csrf_token %}
+        <div class="res_tbl_wrap">
+            <table class="table table-bordered border-dark">
+                <thead class="text-center">
+                    <tr>
+                        <th scope="col">질문</th>
+                        <th scope="col">답변</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row" class="q">유저 이메일</td>
+                        <td>{{email}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="q">환자번호</td>
+                        <td>{{num}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="q">성별</td>
+                        <td>{{sex}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="q">나이 (세)</td>
+                        <td>{{age}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="q">교육 연한 (년)</td>
+                        <td>{{edu}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="q">주 사용 손</td>
+                        <td>{{hand}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="q">환자가 기억력 저하를 느낍니까?</td>
+                        <td>{{patient_cog}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="q">보호자가 환자의 기억력 저하를 느낍니까?</td>
+                        <td>{{caregiver_cog}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="q">우울증으로 진단받은 적이 있습니까?</td>
+                        <td>{{depression}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="q">SGDS 또는 BDI로 우울증으로 진단받은 적이 있습니까?</td>
+                        <td>{{ sgds_bdi }}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="q">SGDS 점수</td>
+                        <td>{{SGDS}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="q">뇌경색, 뇌출혈 진단을 받은 적이 있습니까?</td>
+                        <td>{{nuer_prob}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="q">파킨슨병 진단을 받은 적 있습니까?</td>
+                        <td>{{parkin_dis}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="q">파킨슨병 유병 기간 (months) </td>
+                        <td>{{dia_duration}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="q">H&Y 척도</td>
+                        <td>{{HY}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="q">Motor UPDRS 점수</td>
+                        <td>{{UPDRS}}</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="q">K-MoCA 점수 (총점 30)</td>
+                        <td>{{KMoCA}}</td>
+                    </tr>
+                </tbody>
+            </table><br>
+        </div>
+        <div id="footer">
+            <button type="submit" form="my-form" name="save" class="btn btn-dark rounded-pill md-5">확인</button>
+            <button type="submit" form="my-form" name="cancel" class="btn btn-dark rounded-pill md-5">수정</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    var details = '{{ request.session.details }}'
+    console.log(details);
+</script>
+<script src="{% static 'js/confirm.js.' %}"></script>
+{% endblock %}

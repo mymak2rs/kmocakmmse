@@ -1,7 +1,7 @@
 from django import forms
 import main.module.choice as choice
 
-class PatientForm(forms.ModelForm):
+class PatientForm(forms.Form):
     patient_no = forms.CharField(
         label='환자번호',
         required=True,

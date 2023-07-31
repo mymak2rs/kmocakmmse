@@ -1,0 +1,147 @@
+html,body{
+    height: 100%;
+}
+.blank {
+	margin: -10px 0 0 1%;
+}
+.button{
+    text-align: center; 
+}
+#cutoff{
+    margin-right: 3%;
+    display: inline-block;
+}
+table, tr, td{
+    border: none;
+}
+.left{
+    text-align: right;
+    width: 45%;
+}
+.right{
+    text-align: left;
+    width: 50%;
+}
+input[type=number]{
+    margin-left: 5%;
+
+}
+input[type=text]{
+    margin-left: 5%;
+
+}
+.table>:not(caption)>*>* {
+    vertical-align: baseline
+};
+
+@media screen and (max-width: 1400px){
+    .blank{
+        margin: -10px 0 0 1%;
+    }
+    #cutoff{
+        margin-right: 3%;
+    }
+    input[type=number]{
+        margin-left: 10%;
+    }
+    input[type=text]{
+        margin-left: 10%;
+    }
+}
+@media screen and (max-width: 1200px){
+    .blank{
+        margin: -10px 0 0 2%;
+    }
+    input[type=number]{
+        margin-left: 5%;
+    }
+    input[type=text]{
+        margin-left: 5%;
+    }
+}
+@media screen and (max-width: 1000px){
+    .blank{
+        margin: -10px 0 0 7%;
+    }
+    
+}
+@media screen and (max-width: 767px){
+    .blank{
+        margin: -20px 0 0 0;
+    }
+    label{
+        text-align: center;
+        padding-bottom: 5px;
+    }
+    #edu{
+        text-align: center;
+    }
+    .button{
+        margin: 0 auto;
+        text-align: center;
+    }
+    .info-input{
+        margin: auto;
+        text-align: center;
+    }
+    input[type=text]{
+        width: 70%;
+        text-align: center;
+        margin:0 auto;
+    }
+    input[type=number]{
+        width: 70%;
+        text-align: center;
+        margin:0 auto;
+    }
+    .input-group{
+        width: 70%;
+        text-align: center;
+        margin:0 auto;
+    }
+}
+@media screen and (max-width: 439px) {
+    .blank{
+        margin: -20px 0 0 5%;
+    }
+    label{
+        text-align: center;
+        padding-bottom: 5px;
+    }
+    #edu{
+        text-align: center;
+    }
+    .button{
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+        justify-content : center;
+    }
+    #cutoff{
+        margin-right: 0;
+        margin-bottom: 5%;
+        text-align: center;
+    }
+    #machin{
+        margin-bottom: 5%;
+    }
+    .info-input{
+        margin: auto;
+        text-align: center;
+    }
+    input[type=text]{
+        width: 70%;
+        text-align: center;
+        margin:0 auto;
+    }
+    input[type=number]{
+        width: 70%;
+        text-align: center;
+        margin:0 auto;
+    }
+    .input-group{
+        width: 70%;
+        text-align: center;
+        margin:0 auto;
+    }
+}
