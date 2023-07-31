@@ -22,3 +22,9 @@
     python kmocakmmse/manage.py runserver 
 ```
 
+## 진행사항
+
+### 전체적인 루트 수정
+
+### 환자정보입력페이지
+- education 재입력 구현필요
