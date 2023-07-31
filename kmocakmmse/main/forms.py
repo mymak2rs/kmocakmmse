@@ -362,7 +362,7 @@ class PatientForm(forms.ModelForm):
         self.mocak_total = mocak_total
         
         
-class KMoCAForm(forms.ModelForm):
+class KMoCAForm(forms.Form):
     mc_atm = forms.CharField(
         label='1-가-2-나-3-다',
         required=False,
@@ -778,7 +778,18 @@ class KMoCAForm(forms.ModelForm):
         ),
         #error_messages={'required': '점수를 선택해주세요.'}
     )
-
+    ms_pentagon = forms.CharField(
+        label='오각형 그리기',
+        required=False,
+        widget=forms.RadioSelect(
+            choices=choice.CHOICE_SCORE,
+            attrs={
+                'class': 'KMMSE',
+                'id': 'KMMSE1',
+            }
+        ),
+        #error_messages={'required': '점수를 선택해주세요.'}
+    )
     mc_score = forms.CharField(
         label='MC_Score',
         required=False,
@@ -827,6 +838,7 @@ class KMoCAForm(forms.ModelForm):
             'mc_day',
             'mc_place',
             'mc_city',
+            'ms_pentagon',
             'mc_score'
         ]
     
@@ -864,6 +876,7 @@ class KMoCAForm(forms.ModelForm):
         mc_day = cleaned_data.get('mc_day','')
         mc_place = cleaned_data.get('mc_place','')
         mc_city = cleaned_data.get('mc_city','')
+        ms_pentagon = cleaned_data.get('ms_pentagon','')
         mc_score = cleaned_data.get('mc_score', '')
         
 
@@ -921,4 +934,5 @@ class KMoCAForm(forms.ModelForm):
             self.mc_day = mc_day
             self.mc_place = mc_place
             self.mc_city = mc_city
+            self.ms_pentagon=ms_pentagon
             self.mc_score = mc_score

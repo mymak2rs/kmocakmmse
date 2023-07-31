@@ -1,0 +1,102 @@
+h1{
+    margin: auto; 
+    width: 100%; 
+    padding-bottom: 3%; 
+    text-align: center;
+}
+.form-horizontal .control-label{
+    text-align: left;
+}
+li{
+    list-style : none;
+    display : inline;
+
+}
+input[type="radio"]{
+    margin: 0 0 3px 10px;
+  }
+
+input[type="number"]{
+    margin: 0 0 0 30px;
+  }
+
+input[type="text"]{
+    margin: 0 0 0 30px;
+  }
+
+.area{
+    width: 30%;
+}  
+.question{
+    width: 30%;
+}
+.score{
+    width: 40%;
+}
+
+td, th {
+    text-align : center;
+    vertical-align : middle;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.KMoCA, .KMMSE, .MoCAK, .MMSE1_1,.MMSE1_2,.MMSE1_3,.MMSE1_4,.MMSE1_5,.MMSE2_1,.MMSE2_2,.MMSE2_3,.MMSE2_4,.MMSE2_5,.MC_Score,#common,.KMMSE1_Score,.KMMSE2_Score{
+    margin-bottom:0;
+    text-align: center;
+    vertical-align: middle;
+}
+
+div{
+    width:100%;
+    
+}
+
+div.left{
+    width:45%;
+    box-sizing:border-box;
+    margin:0 auto;
+}
+
+table{
+    border: 3px solid #000;
+}
+#footer{
+    height: 100%;
+    clear:both;
+    text-align: center;
+}
+
+.hide{
+    display: none;
+}
+input[type=number]{
+    width: 60%;
+}    
+input[type=text]{
+    width: 60%;
+}   
+
+@media screen and (max-width: 1000px) {
+    div.top-left{
+        width:100%;
+        box-sizing:border-box;
+    }
+    div.left{
+        width:100%;
+        box-sizing:border-box;
+    }
+    div.right{
+        width:100%;
+        box-sizing:border-box;
+    }
+    #k-mmse{
+        display: none;
+    }
+    .table{
+        font-size: 0.7rem;
+    }
+    .hide{
+        display: inline;
+    }
+}
