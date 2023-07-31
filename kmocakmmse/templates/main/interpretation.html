@@ -1,0 +1,84 @@
+{% extends "main/base.html" %}
+{% load bootstrap5 %} 
+{% load static %}
+
+{% block title %} Interpretation Of MoCA Tests {% endblock %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/interpretation.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="table_div">
+    <h5>INTERPRETATION OF MOCA WITH PENTAGON DRAWING TESTS</h5>
+    <br>
+    <form action="" method="POST" id="my-form">
+        {% csrf_token %}
+        <div class="res_tbl_wrap">
+            <table class="tb_margin">
+                <tr>
+                    <td>나이: 00세</td>
+                    <td>교육연한: 00년</td>
+                    <td>MoCA 총점: 00/30</td>
+                    <td>Pentagon: fail (or pass)</td>
+                </tr>
+            </table>
+            
+            <table class="table table-bordered border-dark">
+                <thead class="text-center">
+                    <tr>
+                        <th scope="col">Methods of cognitive assessment</th>
+                        <th scope="col">Cognitive groups</th>
+                        <th scope="col">Cutoff</th>
+                        <th scope="col">Results:Cognitive diagnosis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row" class="q">Cutoff of 26</td>
+                        <td>PD-NC VS. PD-MCI or PDD</td>
+                        <td scope="row" class="q">00</td>
+                        <td>RESULT</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="q">Age & education adjusted cutoffs</td>
+                        <td>PD-NC VS. PD-MCI or PDD</td>
+                        <td scope="row" class="q">00</td>
+                        <td>RESULT</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="q">Machine learning with domain scores of MoCA plus pentagon drawing</td>
+                        <td>PD-NC VS. PD-MCI or PDD</td>
+                        <td scope="row" class="q">NA</td>
+                        <td>RESULT</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="q">Age & education adjusted cutoffs</td>
+                        <td>PD-NC or PD-MCI VS. PDD</td>
+                        <td scope="row" class="q">00</td>
+                        <td>RESULT</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" class="q">Machine learning with domain scores of MoCA plus pentagon drawing</td>
+                        <td>PD-NC or PD-MCI VS. PDD</td>
+                        <td scope="row" class="q">NA</td>
+                        <td>RESULT</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" scope="row" class="q">Abbreviations: PD, Parkinson’s disease; PD-NC, PD with normal cognition; PD-MCI, PD with mild cognitive impairment; PDD, PD with dementia; NA, not applicable; MoCA, Montreal Cognitive Assessment.</td>
+                    </tr>
+                </tbody>
+            </table><br>
+        </div>
+        <div id="footer">
+            <button type="submit" form="my-form" name="save" class="btn btn-dark rounded-pill md-5">돌아가기</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<!-- <script src="{% static 'js/confirm.js.' %}"></script> -->
+{% endblock %}

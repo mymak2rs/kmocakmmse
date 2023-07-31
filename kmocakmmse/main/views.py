@@ -146,3 +146,6 @@ def details(request):
                 for value in kmoca_form.errors.values():
                     context['error'] = value
         return render(request, 'main/details.html', context)
+
+def interpretation(request):
+    return render(request, 'main/interpretation.html', )

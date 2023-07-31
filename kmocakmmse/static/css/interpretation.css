@@ -1,0 +1,44 @@
+h5{
+    text-align:center;
+    font-weight: 900;
+    text-decoration: underline;
+}
+#footer{
+    height: 100%;
+    clear:both;
+    text-align: center;
+}
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    border: 3px solid #000;
+    border-spacing: 30px;
+}
+
+th { 
+  background: #333; 
+  color: black; 
+  font-weight: bold; 
+}
+td, th { 
+  padding: 6px; 
+  border: 1px solid #000; 
+  text-align: center;
+  vertical-align: middle;
+}
+.table_div{
+  width:35%;
+  margin: 4rem auto;
+  font-size:1vw;
+}
+.tb_margin{
+    margin-bottom: 2%;
+}
+
+@media screen and (max-width: 990px) {
+  .table_div{
+      width:80%;
+      margin: 1rem auto;
+      font-size:0.7rem;
+    }
+}
