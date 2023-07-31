@@ -8,13 +8,7 @@
 <div style="text-align: center; width: 100%; margin: 4rem auto">
     <h1>K-MoCA 인지장애 판별</h1>
     
-    {% if login_session %}
-    {% comment %} <a href="{% url 'input:info' %}"><button class="btn btn-dark rounded-pill md-3">환자 정보 입력</button></a>
-    <a href="{% url 'input:package' %}"><button class="btn btn-dark rounded-pill md-3">데이터 일괄 입력</button></a>
-    {% else %}
-    <a href="{% url 'myapp:login' %}"><button class="btn btn-dark rounded-pill md-3">로그인</button></a>
-    <a href="{% url 'myapp:register' %}"><button class="btn btn-dark rounded-pill md-3">회원가입</button></a> {% endcomment %}
-    {% endif %}
+    <a href="{% url 'myapp:info' %}"><button class="btn btn-dark rounded-pill md-3">환자 정보 입력</button></a>
 </div>
 {% endblock %}
 

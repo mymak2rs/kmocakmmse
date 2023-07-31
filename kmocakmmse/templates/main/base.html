@@ -5,7 +5,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
 
@@ -50,25 +49,6 @@
         </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    {% comment %} {% if request.session.login_session %}
-                    <li class="nav-item ms-auto mb-2 mb-lg-0">
-                        <a class="nav-link " href="{% url 'output:mypage' %}">{{ request.session.login_session }}</a>
-                    </li>
-                    <li class="nav-item ms-auto mb-2 mb-lg-0">
-                        <a class="nav-link" href="{% url 'output:mypage' %}">마이페이지</a>
-                    </li>
-                    <li class="nav-item ms-auto mb-2 mb-lg-0">
-                        <a class="nav-link" href="{% url 'myapp:logout' %}">로그아웃</a>
-                    </li>
-                    
-                    {% else %}
-                    <li class="nav-item ms-auto mb-2 mb-lg-0">
-                        <a class="nav-link" href="{% url 'myapp:login' %}">로그인</a>                
-                    </li>
-                    <li class="nav-item ms-auto mb-2 mb-lg-0">
-                        <a class="nav-link" href="{% url 'myapp:register' %}">회원가입</a>
-                    </li>
-                    {% endif %} {% endcomment %}
                 </ul>
             </div>
         </div>
