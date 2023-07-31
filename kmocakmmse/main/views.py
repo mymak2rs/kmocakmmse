@@ -18,21 +18,23 @@ def home(request, context={}):
     return render(request, 'main/home.html', context)
 
 def info(request):
+    # 재입력 시 데이터 불러오기
     if request.session['re_input']:
-        print(request.session['re_input'])
         patient_info = request.session.get('patient_info')
         
         if patient_info['education'] != 0.0 and patient_info['education'] != 0.5:
             patient_info['education'] = 999.0
         
         request.session['re_input'] = False 
-        context = {'forms': PatientForm(initial=patient_info)}
-        return render(request, 'main/info.html', context)
+        patient_form = PatientForm(initial=patient_info)
+        first = False
+        
     else:
+        first = True
         patient_form = PatientForm()
     
     edu = request.session.get('edu', '')
-    context = {'forms': patient_form, 'edu1': edu, 'first': True }
+    context = {'forms': patient_form, 'edu1': edu, 'first': first }
         
     if request.method == 'GET':
         return render(request, 'main/info.html', context)
@@ -41,9 +43,10 @@ def info(request):
         patient_form = PatientForm(request.POST)
         edu = request.POST.get('edu_input')
         request.session['edu'] = edu
+        
         # 데이터의 유효성을 검사하는 메소드, form.py에서 작성한 clean() 메소드 호출, 유효성 검사가 ok이면 true
         if patient_form.is_valid():                           
-            if patient_form.education == 999:
+            if patient_form.education == 999.0:
                 patient_form.education = edu
                 
             if 'cutoff' in request.POST:
@@ -58,6 +61,8 @@ def info(request):
                 request.session['details'] = False 
                 
                 patient_info = patient_form.cleaned_data
+                if patient_info['education'] == 999.0:
+                    patient_info['education'] = edu
                 request.session['patient_info'] = patient_info
                       
                 return redirect('myapp:confirm')
@@ -66,6 +71,11 @@ def info(request):
                 request.session['info'] = True
                 request.session['cutoff'] = False
                 request.session['details'] = True
+                
+                patient_info = patient_form.cleaned_data
+                if patient_info['education'] == 999.0:
+                    patient_info['education'] = edu
+                request.session['patient_info'] = patient_info
                 
                 return redirect('myapp:confirm')
 
@@ -138,7 +148,7 @@ def details(request):
                 context['mocaform']=kmoca_form
                 return render(request, 'main/details.html', context)
 
-            return redirect('output:machin')
+            return redirect('myapp:machin')
                     
         else:
             context['mocaform'] = kmoca_form

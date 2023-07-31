@@ -24,6 +24,6 @@ function findTotal1(){
 window.onpageshow = function(event) {
     if (event.persisted || (window.performance && window.performance.navigation.type == 2)){
         alert('환자 정보를 다시 입력해주세요.'); 
-        window.location.replace("/main/info");
+        window.location.replace("/main/info/");
     }
 }
