@@ -41,7 +41,7 @@ td, th {
     margin-right: auto;
 }
 
-.KMoCA, .KMMSE, .MoCAK, .MMSE1_1,.MMSE1_2,.MMSE1_3,.MMSE1_4,.MMSE1_5,.MMSE2_1,.MMSE2_2,.MMSE2_3,.MMSE2_4,.MMSE2_5,.MC_Score,#common,.KMMSE1_Score,.KMMSE2_Score{
+.KMoCA{
     margin-bottom:0;
     text-align: center;
     vertical-align: middle;
@@ -78,20 +78,9 @@ input[type=text]{
 }   
 
 @media screen and (max-width: 1000px) {
-    div.top-left{
-        width:100%;
-        box-sizing:border-box;
-    }
     div.left{
         width:100%;
         box-sizing:border-box;
-    }
-    div.right{
-        width:100%;
-        box-sizing:border-box;
-    }
-    #k-mmse{
-        display: none;
     }
     .table{
         font-size: 0.7rem;
