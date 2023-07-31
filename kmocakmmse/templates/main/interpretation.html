@@ -11,6 +11,22 @@
 
 {% block content %}
 
+{% if request.session.info %}
+{% else %}
+<script>
+    alert('환자 정보를 입력해주세요.'); 
+    window.location.replace("/main/info/");
+</script>
+{% endif %}
+
+{% if request.session.details %}
+{% else %}
+<script>
+    alert('K-MoCA test를 입력해주세요.'); 
+    window.location.replace("/main/details/");
+</script>
+{% endif %}
+
 <div class="table_div">
     <h5>INTERPRETATION OF MOCA WITH PENTAGON DRAWING TESTS</h5>
     <br>

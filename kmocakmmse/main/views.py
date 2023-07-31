@@ -16,6 +16,9 @@ def home(request, context={}):
     request.session['first'] = False
     request.session['info'] = False
     request.session['re_input'] = False
+    request.session['details'] = False
+    request.session['patient_info'] = None
+    request.session['kmoca'] = None
     
     return render(request, 'main/home.html', context)
 
@@ -60,7 +63,6 @@ def info(request):
 
                 request.session['info'] = True
                 request.session['cutoff'] = True
-                request.session['details'] = False 
                 
                 patient_info = patient_form.cleaned_data
                 if patient_info['education'] == 999.0:
@@ -72,7 +74,6 @@ def info(request):
             else:
                 request.session['info'] = True
                 request.session['cutoff'] = False
-                request.session['details'] = True
                 
                 patient_info = patient_form.cleaned_data
                 if patient_info['education'] == 999.0:
@@ -152,6 +153,7 @@ def details(request):
 
             kmoca = kmoca_form.cleaned_data
             request.session['kmoca'] = kmoca
+            request.session['details'] = True
             return redirect('myapp:interpretation')
                     
         else:
@@ -165,6 +167,12 @@ def interpretation(request):
     # 데이터 불러오기
     patient_info = request.session.get('patient_info')
     kmoca = request.session.get('kmoca')
+    
+    if patient_info is None:
+        return render(request, 'main/interpretation.html')
+    
+    if kmoca is None:
+        return render(request, 'main/interpretation.html')
     
     # 데이터 전처리
     patient_info['sex'] = check.char2int(patient_info['sex'])

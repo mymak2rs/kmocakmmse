@@ -831,7 +831,7 @@ class KMoCAForm(forms.Form):
         
 
         KMoCAList = [mc_atm, mc_cube, mc_clock_cont,mc_clock_num,mc_clock_hands,mc_lion,mc_bat,mc_camel,mc_forward,mc_backward,mc_vigilance,mc_serial_7s,mc_sentence_1,mc_sentence_2,mc_fluency,mc_abstraction_1,mc_abstraction_2,mc_face,
-                     mc_silks,mc_school,mc_pipe,mc_yellow,mc_date,mc_month,mc_year,mc_day,mc_place,mc_city,mc_score]
+                     mc_silks,mc_school,mc_pipe,mc_yellow,mc_date,mc_month,mc_year,mc_day,mc_place,mc_city,mc_score, ms_pentagon]
         if mc_fluency != '':
             mc_fluency_n = '1' if int(mc_fluency) >= 6 else '0'
         else:
