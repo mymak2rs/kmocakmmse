@@ -20,10 +20,10 @@ kmoca_sum_target = ['K-MoCA_시공간/집행기능_1-가->5-마', 'K-MoCA_시공
 
 def mocab_LR(input):
     model = joblib.load('D:/DBLab/kmocakmmse/kmocakmmse/kmocakmmse/main/regression/datasetB/best_model_b.pkl')
-    predict = model.predict_proba(input).round(2)*100
+    predict = model.predict_proba(input).round(4)*100
     return predict.ravel()
 
 def mocad_LR(input):
     model = joblib.load('D:/DBLab/kmocakmmse/kmocakmmse/kmocakmmse/main/regression/datasetD/best_model_d.pkl')
-    predict = model.predict_proba(input).round(2)*100
+    predict = model.predict_proba(input).round(4)*100
     return predict.ravel()

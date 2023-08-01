@@ -137,6 +137,7 @@ def confirm(request, patient_info={}):
     
 def details(request):
     kmoca_form = KMoCAForm()
+    patient_info = request.session.get('patient_info')
     context = {'mocaform': kmoca_form}
 
     if request.method == 'GET':
@@ -151,6 +152,12 @@ def details(request):
                 context['mocaform']=kmoca_form
                 return render(request, 'main/details.html', context)
 
+            if patient_info['kmoca_total']:
+                if int(kmoca_form.mc_score) != patient_info['kmoca_total']:
+                    kmoca_form.add_error('mc_score', 'K-MoCA 총점이 다릅니다.')
+                    context['mocaform']=kmoca_form
+                    return render(request, 'main/details.html', context)
+            
             kmoca = kmoca_form.cleaned_data
             request.session['kmoca'] = kmoca
             request.session['details'] = True
@@ -205,7 +212,6 @@ def interpretation(request):
     moca_score = int(kmoca_df.mc_score)
     
     cutoff_moca, moca_zscore = cutoff_norm.MoCA_cutoff(age, edu, moca_score)
-    print(cutoff_moca)
     
     context = {
                 'age': age,
@@ -215,18 +221,49 @@ def interpretation(request):
                 'moca_cutoff': int(cutoff_moca),
                 'mocab_machin_result': str(mocab_machin_result) if kmoca else '',
                 'mocad_machin_result': str(mocad_machin_result) if kmoca else '',
-                'mocab_machin_decision': 'normal cognition',
-                'mocad_machin_decision': 'normal cognition'
+                'mocab_machin_decision': False,
+                'mocad_machin_decision': False
                }
     
     if cutoff_moca > moca_score:
-        context['result_moca'] = 'Cognitive impairment'
+        context['cutoff_result'] = True
     else:
-        context['result_moca'] = 'normal cognition'
+        context['cutoff_result'] = False
     
     if mocab_machin_result > 50:
-        context['mocab_machin_decision'] = 'Cognitive impairment'
+        context['mocab_machin_decision'] = True
     if mocad_machin_result > 50:
-        context['mocad_machin_decision'] = 'dementia'
+        context['mocad_machin_decision'] = True
     
     return render(request, 'main/interpretation.html', context)
+
+
+def cutoff(request):
+    # 데이터 불러오기
+    patient_info = request.session.get('patient_info')    
+    if patient_info is None:
+        return render(request, 'main/interpretation.html')
+        
+    # 데이터 전처리
+    patient_info['sex'] = check.char2int(patient_info['sex'])
+    
+    info_df = pd.DataFrame.from_dict(data=patient_info, orient='index').transpose()
+    age = int(info_df.age)
+    edu = int(info_df.education)
+    moca_score = int(info_df.kmoca_total)
+    
+    cutoff_moca, moca_zscore = cutoff_norm.MoCA_cutoff(age, edu, moca_score)
+    
+    context = {
+                'age': age,
+                'edu': edu,
+                'KMoCA': moca_score,
+                'moca_cutoff': int(cutoff_moca),
+               }
+    
+    if cutoff_moca > moca_score:
+        context['cutoff_result'] = True
+    else:
+        context['cutoff_result'] = False
+
+    return render(request, 'main/cutoff.html', context)

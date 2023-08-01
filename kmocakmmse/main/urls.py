@@ -10,7 +10,6 @@ urlpatterns = [
     path('info/', views.info, name='info'),
     path('details/', views.details, name='details'),
     path('confirm/', views.confirm, name='confirm'),
-    path('interpretation/', views.interpretation, name='interpretation')
-    # path('cutoff/', views.cutoff, name='cutoff'),
-    # path('machin/', views.machin, name='machin'),
+    path('interpretation/', views.interpretation, name='interpretation'),
+    path('cutoff/', views.cutoff, name='cutoff'),
 ]

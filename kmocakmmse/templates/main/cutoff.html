@@ -19,13 +19,6 @@
 </script>
 {% endif %}
 
-{% if request.session.details %}
-{% else %}
-<script>
-    alert('K-MoCA test를 입력해주세요.'); 
-    window.location.replace("/main/details/");
-</script>
-{% endif %}
 
 <div class="table_div">
     <h5>INTERPRETATION OF MOCA WITH PENTAGON DRAWING TESTS</h5>
@@ -47,7 +40,7 @@
 
                     </td>
                     <td>MoCA 총점: {{ KMoCA }}/30</td>
-                    <td>Pentagon: {{ pentagon }}</td>
+                    <td>Pentagon: NA</td>
                 </tr>
             </table>
             
@@ -81,11 +74,7 @@
                         <td scope="row" class="q">Machine learning with domain scores of MoCA plus pentagon drawing</td>
                         <td>PD-NC VS.<br><strong>PD-MCI or PDD</strong></td>
                         <td>NA</td>
-                        {% if mocab_machin_decision %}
-                        <td class="r"><font color="yellow">Cognitive impairment<br>인지장애 확률 {{ mocab_machin_result }}%</font></td>
-                        {% else %}
-                        <td class="r"><font color="#01DF01">normal cognition<br>인지장애 확률 {{ mocab_machin_result }}%</font></td>
-                        {% endif %}
+                        <td class="r">NA</td>
                     </tr>
                     <tr>
                         <td scope="row" class="q">Age & education adjusted cutoffs</td>
@@ -101,11 +90,7 @@
                         <td scope="row" class="q">Machine learning with domain scores of MoCA plus pentagon drawing</td>
                         <td>PD-NC or <br>PD-MCI VS. <strong>PDD</strong></td>
                         <td>NA</td>
-                        {% if mocad_machin_decision %}
-                        <td class="r"><font color="red">dementia<br>치매 확률 {{ mocad_machin_result }}%</font></td>
-                        {% else %}
-                        <td class="r"><font color="#01DF01">normal cognition<br>치매 확률 {{ mocad_machin_result }}%</font></td>
-                        {% endif %}
+                        <td class="r">NA</td>
                     </tr>
                     <tr>
                         <td colspan="4" scope="row" class="q">Abbreviations: PD, Parkinson’s disease; PD-NC, PD with normal cognition; PD-MCI, PD with mild cognitive impairment; PDD, PD with dementia; NA, not applicable; MoCA, Montreal Cognitive Assessment.</td>
