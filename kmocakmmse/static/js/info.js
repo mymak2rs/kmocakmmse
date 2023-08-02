@@ -95,7 +95,7 @@ $("#machin").click(function(e) {
         $("#my-form").submit();
     } else {
         // 모든 항목이 채워져 있지 않으면 alert 표시
-        alert("모든 항목을 채워주세요!");
+        alert("기계학습을 위한 항목을 채워주세요.");
         e.preventDefault(); // form 제출 막기
     }
 });
@@ -125,6 +125,5 @@ $("#cutoff").click(function(e) {
     } else {
         // 모든 항목이 채워져 있지 않으면 alert 표시
         alert("cutoff 검사를 위한 항목이 비어있습니다.");
-        e.preventDefault(); 
     }
 });

@@ -90,13 +90,12 @@ def info(request):
 
 
 def confirm(request, patient_info={}):
-     # 환자정보 입력 여부 체크
-    if request.session['info']:
-        p_id = request.session.get('info_id','')
-    else:
-        p_id = None
-            
+    # 환자정보 입력 여부 체크    
     patient_info = request.session.get('patient_info')
+    
+    if patient_info is None:
+        return render(request, 'main/confirm.html')
+    
     context = {
                 'num': patient_info['patient_no'],
                 'sex': check.check_answer(patient_info['sex']),
