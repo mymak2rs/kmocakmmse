@@ -1,14 +1,13 @@
-from django.shortcuts import render
 import pandas as pd
 import numpy as np
 from django.shortcuts import render, redirect
 from .forms import PatientForm, KMoCAForm
 from .module import check, cutoff_norm
 from .regression import model
-
+from django.http import HttpResponseNotFound
 
 # 404 page custom
-def page_not_found_view(request, exception):
+def page_not_found_view(request, exception=None):
     return render(request, 'main/404.html', status=404)
 
 

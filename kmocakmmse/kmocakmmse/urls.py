@@ -16,8 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import RedirectView
-from django.conf.urls.static import static
 from django.conf import settings
+from django.conf.urls import handler404
+from django.shortcuts import render
 
 urlpatterns = [
     path('main/', include('main.urls')),
@@ -25,10 +26,5 @@ urlpatterns = [
     path('', RedirectView.as_view(url="/main/", permanent=True)),
 ]
 
-if settings.DEBUG: 
-    urlpatterns += static(
-        settings.MEDIA_URL, 
-        document_root = settings.MEDIA_ROOT
-    )
 
 handler404 = "main.views.page_not_found_view"

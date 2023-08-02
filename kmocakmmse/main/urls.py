@@ -13,3 +13,4 @@ urlpatterns = [
     path('interpretation/', views.interpretation, name='interpretation'),
     path('cutoff/', views.cutoff, name='cutoff'),
 ]
+
