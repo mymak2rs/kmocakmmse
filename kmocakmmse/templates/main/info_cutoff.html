@@ -1,0 +1,59 @@
+{% extends "main/base.html" %}
+{% load bootstrap5 %} 
+{% load static %}
+
+{% block title %}환자 정보 입력{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/info.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div style="text-align: center; width: 90%; margin: 3% auto">
+    <h1>환자 정보 입력</h1>
+    <form action="" method="POST" id="my-form">
+    {% csrf_token %}
+        <!-- 필드별 class 지정 -->
+        <div class="info-input">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td class="left">{{ forms.age.label }}</td>
+                        <td class="right">{% bootstrap_field forms.age layout='horizontal' horizontal_field_class='col-md-4' show_label=False %}</td>
+                    </tr>
+                    <tr>
+                        <td class="left">{{ forms.education.label }}</td>
+                        <td class="right">{% bootstrap_field forms.education layout='horizontal' form_check_class='form-check form-check-inline' horizontal_field_class='col-md-7' show_label=False %}
+                        <div class="col-md-2 blank" id="input-edu_1">
+                            {% bootstrap_field forms.edu_input %}
+                        </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="left">{{ forms.kmoca_total.label }}</td>
+                        <td class="right">{% bootstrap_field forms.kmoca_total layout='horizontal' horizontal_field_class='col-md-4' addon_after='/30' show_label=False %}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+                        
+        <div class="button">
+            <button type="submit" form="my-form" id="cutoff" name="cutoff" class="btn btn-dark rounded-pill">확인</button>
+        </div>
+        <br>
+        <br>
+    </form>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    var error = '{{ error }}';
+    var cutoff = '{{ cutoff }}';
+    var machine = '{{ machine }}';
+</script>
+<script src="{% static 'js/info.js' %}"></script>
+{% endblock %}
+
+

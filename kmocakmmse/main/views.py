@@ -12,36 +12,37 @@ def page_not_found_view(request, exception=None):
 
 
 def home(request, context={}):
-    request.session['first'] = False
     request.session['info'] = False
     request.session['re_input'] = False
     request.session['details'] = False
     request.session['patient_info'] = None
     request.session['kmoca'] = None
     
-    return render(request, 'main/home.html', context)
+    if request.method == 'GET':
+        return render(request, 'main/home.html', context)
+    
+    elif request.method == 'POST':
+        if 'cutoff' in request.POST:
+            request.session['cutoff'] = True
+            request.session['machine'] = False
+        else:
+            request.session['cutoff'] = False
+            request.session['machine'] = True
+            
+        return redirect('myapp:info')
+    
+    
 
 def info(request):
-    # 재입력 시 데이터 불러오기
-    if request.session['re_input']:
-        patient_info = request.session.get('patient_info')
-        
-        if patient_info['education'] != 0.0 and patient_info['education'] != 0.5:
-            patient_info['education'] = 999.0
-        
-        request.session['re_input'] = False 
-        patient_form = PatientForm(initial=patient_info)
-        first = False
-        
-    else:
-        first = True
-        patient_form = PatientForm()
-    
-    edu = request.session.get('edu', '')
-    context = {'forms': patient_form, 'edu1': edu, 'first': first }
+    patient_form = PatientForm()
+    context = {'forms': patient_form }
+    cutoff = request.session.get('cutoff', '')
         
     if request.method == 'GET':
-        return render(request, 'main/info.html', context)
+        if cutoff:
+            return render(request, 'main/info_cutoff.html', context)
+        else:
+            return render(request, 'main/info.html', context)
     
     elif request.method == 'POST':
         patient_form = PatientForm(request.POST)
@@ -53,7 +54,7 @@ def info(request):
             if patient_form.education == 999.0:
                 patient_form.education = edu
                 
-            if 'cutoff' in request.POST:
+            if cutoff:
                 if patient_form.kmoca_total == None:
                     patient_form.add_error('kmoca_total', '하나라도 값을 입력해주세요.')
                     context['forms'] = patient_form
@@ -61,18 +62,15 @@ def info(request):
                     return render(request, 'main/info.html', context)
 
                 request.session['info'] = True
-                request.session['cutoff'] = True
                 
                 patient_info = patient_form.cleaned_data
                 if patient_info['education'] == 999.0:
                     patient_info['education'] = edu
                 request.session['patient_info'] = patient_info
                       
-                return redirect('myapp:confirm')
+                return redirect('myapp:interpretation')
 
             else:
-                request.session['info'] = True
-                request.session['cutoff'] = False
                 
                 patient_info = patient_form.cleaned_data
                 if patient_info['education'] == 999.0:
@@ -89,50 +87,6 @@ def info(request):
         return render(request, 'main/info.html', context)
 
 
-def confirm(request, patient_info={}):
-    # 환자정보 입력 여부 체크    
-    patient_info = request.session.get('patient_info')
-    
-    if patient_info is None:
-        return render(request, 'main/confirm.html')
-    
-    context = {
-                'num': patient_info['patient_no'],
-                'sex': check.check_answer(patient_info['sex']),
-                'age': patient_info['age'],
-                'edu': check.check_answer(patient_info['education']),
-                'KMoCA': check.check_answer(patient_info['kmoca_total']),
-                'hand': check.check_answer(patient_info['handedness']),
-                'patient_cog': check.check_answer(patient_info['patient_cog_compl']),
-                'caregiver_cog': check.check_answer(patient_info['caregiver_cog_compl']),
-                'nuer_prob': check.check_answer(patient_info['neurologic_problems']),
-                'parkin_dis': check.check_answer(patient_info['parkinson_disease']),
-                'dia_duration': check.check_answer(patient_info['diag_duration']),
-                'depression': check.check_answer(patient_info['depression']),
-                'sgds_bdi': check.check_answer(patient_info['sgds_bdi_depression']),
-                'HY': check.check_answer(patient_info['hy_stage']),
-                'UPDRS': check.check_answer(patient_info['motor_updrs_score']),
-                'SGDS': check.check_answer(patient_info['sgds_score']),
-            }
-    
-    if request.method == 'GET':
-        return render(request, 'main/confirm.html', context)
-    
-    elif request.method == 'POST':
-        if 'save' in request.POST:
-            request.session['info_id'] = None
-            request.session['edu'] = None
-            if request.session['cutoff']:
-                return redirect('myapp:cutoff')
-            else:
-                return redirect('myapp:details')
-        
-        elif 'cancel' in request.POST:
-            # 삭제 전에 가져와서 다시 info 페이지에 넣어준다?
-            request.session['re_input'] = True
-            return redirect('myapp:info')
-        return render(request, 'main/info.html')
-    
 def details(request):
     kmoca_form = KMoCAForm()
     patient_info = request.session.get('patient_info')
@@ -234,34 +188,3 @@ def interpretation(request):
         context['mocad_machin_decision'] = True
     
     return render(request, 'main/interpretation.html', context)
-
-
-def cutoff(request):
-    # 데이터 불러오기
-    patient_info = request.session.get('patient_info')    
-    if patient_info is None:
-        return render(request, 'main/interpretation.html')
-        
-    # 데이터 전처리
-    patient_info['sex'] = check.char2int(patient_info['sex'])
-    
-    info_df = pd.DataFrame.from_dict(data=patient_info, orient='index').transpose()
-    age = int(info_df.age)
-    edu = int(info_df.education)
-    moca_score = int(info_df.kmoca_total)
-    
-    cutoff_moca, moca_zscore = cutoff_norm.MoCA_cutoff(age, edu, moca_score)
-    
-    context = {
-                'age': age,
-                'edu': edu,
-                'KMoCA': moca_score,
-                'moca_cutoff': int(cutoff_moca),
-               }
-    
-    if cutoff_moca > moca_score:
-        context['cutoff_result'] = True
-    else:
-        context['cutoff_result'] = False
-
-    return render(request, 'main/cutoff.html', context)
