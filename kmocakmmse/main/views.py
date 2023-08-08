@@ -35,8 +35,10 @@ def home(request, context={}):
 
 def info(request):
     patient_form = PatientForm()
-    context = {'forms': patient_form }
     cutoff = request.session.get('cutoff', '')
+    machine = request.session.get('machine', '')
+    context = {'forms': patient_form, 'cutoff': cutoff, 'machine': machine }
+
         
     if request.method == 'GET':
         if cutoff:

@@ -35,10 +35,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="left">{{ forms.handedness.label }}</td>
-                        <td class="right">{% bootstrap_field forms.handedness form_check_class='form-check form-check-inline' layout='horizontal' horizontal_field_class='col-md-7' show_label=False %}</td>
-                    </tr>
-                    <tr>
                         <td class="left">{{ forms.patient_cog_compl.label }}</td>
                         <td class="right">{% bootstrap_field forms.patient_cog_compl form_check_class='form-check form-check-inline' layout='horizontal' horizontal_field_class='col-md-7' show_label=False %}</td>
                     </tr>
@@ -47,24 +43,12 @@
                         <td class="right">{% bootstrap_field forms.caregiver_cog_compl form_check_class='form-check form-check-inline' layout='horizontal' horizontal_field_class='col-md-7' show_label=False %}</td>
                     </tr>
                     <tr>
-                        <td class="left">{{ forms.depression.label }}</td>
-                        <td class="right">{% bootstrap_field forms.depression form_check_class='form-check form-check-inline' layout='horizontal' horizontal_field_class='col-md-7' show_label=False %}</td>
-                    </tr>
-                    <tr>
                         <td class="left">{{ forms.sgds_bdi_depression.label }}</td>
                         <td class="right">{% bootstrap_field forms.sgds_bdi_depression form_check_class='form-check form-check-inline' layout='horizontal' horizontal_field_class='col-md-7' show_label=False %}</td>
                     </tr>
                     <tr>
                         <td class="left">{{ forms.sgds_score.label }}</td>
                         <td class="right">{% bootstrap_field forms.sgds_score layout='horizontal' horizontal_field_class='col-md-4' addon_after='/15' show_label=False %}</td>
-                    </tr>
-                    <tr>
-                        <td class="left">{{ forms.neurologic_problems.label }}</td>
-                        <td class="right">{% bootstrap_field forms.neurologic_problems form_check_class='form-check form-check-inline' layout='horizontal' horizontal_field_class='col-md-7' show_label=False %}</td>
-                    </tr>
-                    <tr>
-                        <td class="left">{{ forms.parkinson_disease.label }}</td>
-                        <td class="right">{% bootstrap_field forms.parkinson_disease form_check_class='form-check form-check-inline' layout='horizontal' horizontal_field_class='col-md-7' show_label=False %}</td>
                     </tr>
                     <tr id="dia_duration_q">
                         <td class="left">{{ forms.diag_duration.label }}</td>

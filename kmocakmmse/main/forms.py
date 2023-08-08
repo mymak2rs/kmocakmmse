@@ -178,7 +178,7 @@ class PatientForm(forms.Form):
         if (education == 999) and (edu_input == None):
             return self.add_error('edu_input', '교육연한을 입력해주세요.')
                     
-        if (diag_duration != '') and (age < diag_duration/12):
+        if (diag_duration != None) and (age < diag_duration/12):
             return self.add_error('age', '나이가 유병기간보다 적습니다.')
     
         if (diag_duration != None) and (diag_duration <= 0):
@@ -208,7 +208,7 @@ class PatientForm(forms.Form):
         if (sgds_score != None) and (sgds_score < 0 or sgds_score > 15):
             return self.add_error('sgds_score', 'SGDS 점수를 확인해주세요. (0 이상 15이하)')
 
-        if (kmoca_total != '') and (kmoca_total > 30) | (kmoca_total < 0):
+        if (kmoca_total != None) and (kmoca_total > 30) | (kmoca_total < 0):
             return self.add_error('kmoca_total', 'K-MoCA 점수를 확인해주세요. (0 이상 30이하)')
     
         
