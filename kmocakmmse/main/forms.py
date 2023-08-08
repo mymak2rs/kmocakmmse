@@ -732,7 +732,7 @@ class KMoCAForm(forms.Form):
         label='오각형 그리기',
         required=False,
         widget=forms.RadioSelect(
-            choices=choice.CHOICE_SCORE,
+            choices=choice.CHOICE_PENTAGON,
             attrs={
                 'class': 'KMMSE',
                 'id': 'KMMSE1',

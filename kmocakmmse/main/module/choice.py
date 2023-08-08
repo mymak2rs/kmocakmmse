@@ -7,6 +7,9 @@ CHOICE_ANSWER = (
 CHOICE_YES_NO = (
     ('1', '예'), ('0', '아니오')
 )
+CHOICE_PENTAGON = (
+    ('0', '0'), ('1', '1'), ('-', '미시행')
+)
 CHOICE_HAND = (
     ('R', '오른손'), ('L', '왼손'), ('B', '양손')
 )
