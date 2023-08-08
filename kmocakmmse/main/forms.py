@@ -1,24 +1,7 @@
 from django import forms
 import main.module.choice as choice
 
-class PatientForm(forms.Form):
-    patient_no = forms.CharField(
-        label='환자번호',
-        required=True,
-        widget=forms.TextInput(
-            attrs={
-                'class': 'patient_num',
-                'placeholder': '환자번호',
-                'id': 'patient_num'
-            }
-        ),
-        error_messages={
-            'required': '환자번호를 입력해주세요.',
-            'unique': '중복된 환자 번호입니다.',
-            'max_length': '환자번호가 너무 깁니다. (45자 이내로 적어주세요.)'
-            }
-    )
-    
+class PatientForm(forms.Form):    
     sex = forms.CharField(
         label='성별',
         required=False,
@@ -76,18 +59,6 @@ class PatientForm(forms.Form):
             }
         )
     )
-    handedness = forms.CharField(
-        label='주 사용 손',
-        required=False,
-        widget=forms.RadioSelect(
-            choices=choice.CHOICE_HAND,
-            attrs={
-                'class': 'hand',
-                'id': 'hand'
-            }
-        ),
-        error_messages={'required': '주 사용 손을 선택해주세요.'}
-    )
     patient_cog_compl = forms.CharField(
         label='환자가 기억력 저하를 느낍니까?',
         required=False,
@@ -112,30 +83,6 @@ class PatientForm(forms.Form):
         ),
         error_messages={'required': '보호자의 환자 기억력 저하 여부를 선택해주세요.'}
     )
-    neurologic_problems = forms.CharField(
-        label='뇌경색, 뇌출혈 진단을 받은 적이 있습니까?',
-        required=False,
-        widget=forms.RadioSelect(
-            choices=choice.CHOICE_ANSWER,
-            attrs={
-                'class': 'neu_prob',
-                'id': 'neu_prob'
-            }
-        ),
-        error_messages={'required': '뇌경색, 뇌출혈 진단의 여부를 선택해주세요.'}
-    )
-    parkinson_disease = forms.CharField(
-        label='파킨슨병 진단을 받은 적이 있습니까?',
-        required=False,
-        widget=forms.RadioSelect(
-            choices=choice.CHOICE_ANSWER,
-            attrs={
-                'class': 'parkins',
-                'id': 'parkins'
-            }
-        ),
-        error_messages={'required': '파킨슨병의 여부를 선택해주세요.'}
-    )
     diag_duration = forms.FloatField(
         label='파킨슨병의 유병 기간(months)',
         required=False,
@@ -147,20 +94,8 @@ class PatientForm(forms.Form):
             }
         )
     )
-    depression = forms.CharField(
-        label='우울증으로 진단받은 적이 있습니까?',
-        required=False,
-        widget=forms.RadioSelect(
-            choices=choice.CHOICE_ANSWER,
-            attrs={
-                'class': 'depress',
-                'id': 'depress'
-            }
-        ),
-        error_messages={'required': '우울증 여부를 선택해주세요.'}
-    )
     sgds_bdi_depression = forms.CharField(
-        label='SGDS 혹은 BDI로 우울증을 진단받은 적이 있습니까?',
+        label='병원에서 우울증을 진단받은 적이 있습니까?',
         required=False,
         widget=forms.RadioSelect(
             choices=choice.CHOICE_YES_NO,
@@ -207,18 +142,14 @@ class PatientForm(forms.Form):
 
     class Meta:
         fields = [
-            'patient_no',
             'sex',
             'age',
             'education',
             'edu_input',
-            'handedness',
             'patient_cog_compl',
             'caregiver_cog_compl',
             'neurologic_problems',
-            'parkinson_disease',
             'diag_duration',
-            'depression',
             'sgds_bdi_depression',
             'hy_stage',
             'motor_updrs_score',
@@ -229,17 +160,14 @@ class PatientForm(forms.Form):
 
     def clean(self):
         cleaned_data = super().clean()
-        patient_no = cleaned_data.get('patient_no', '')
         sex = cleaned_data.get('sex', '')
         age = cleaned_data.get('age', '')
         education = cleaned_data.get('education', '')
         edu_input = cleaned_data.get('edu_input', '')
         kmoca_total = cleaned_data.get('kmoca_total', '')
-        handedness = cleaned_data.get('handedness', '')
         patient_cog_compl = cleaned_data.get('patient_cog_compl', '')
         caregiver_cog_compl = cleaned_data.get('caregiver_cog_compl', '')
         neurologic_problems = cleaned_data.get('neurologic_problems', '')
-        parkinson_disease = cleaned_data.get('parkinson_disease', '')
         diag_duration = cleaned_data.get('diag_duration', '')
         sgds_bdi_depression = cleaned_data.get('sgds_bdi_depression', '')
         depression = cleaned_data.get('depression', '')
@@ -249,20 +177,11 @@ class PatientForm(forms.Form):
 
         if (education == 999) and (edu_input == None):
             return self.add_error('edu_input', '교육연한을 입력해주세요.')
-        
-        if ((parkinson_disease == '0') or (parkinson_disease == '-')) and (diag_duration != None):
-            if diag_duration == 0:
-                pass
-            else:
-                return self.add_error('parkinson_disease', '파킨슨병 진단 여부를 확인해주세요.')
-        
-        if (parkinson_disease == '1') and (diag_duration == None):
-            return self.add_error('diag_duration', '유병기간을 입력해주세요.')
-    
-        if (parkinson_disease == '1') and (age < diag_duration/12):
+                    
+        if (diag_duration != '') and (age < diag_duration/12):
             return self.add_error('age', '나이가 유병기간보다 적습니다.')
     
-        if (parkinson_disease == '1') and (diag_duration <= 0):
+        if (diag_duration != None) and (diag_duration <= 0):
             return self.add_error('diag_duration', '유병기간을 정확히 입력해주세요.')
 
         if (age < education) and (education != 999):
@@ -289,20 +208,17 @@ class PatientForm(forms.Form):
         if (sgds_score != None) and (sgds_score < 0 or sgds_score > 15):
             return self.add_error('sgds_score', 'SGDS 점수를 확인해주세요. (0 이상 15이하)')
 
-        if (not (kmoca_total == None)) and (kmoca_total > 30) | (kmoca_total < 0):
+        if (kmoca_total != '') and (kmoca_total > 30) | (kmoca_total < 0):
             return self.add_error('kmoca_total', 'K-MoCA 점수를 확인해주세요. (0 이상 30이하)')
     
         
-        self.patient_no = patient_no
         self.sex = sex
         self.age = age
         self.education = education        
         self.edu_input = edu_input
-        self.handedness = handedness
         self.patient_cog_compl = patient_cog_compl
         self.caregiver_cog_compl = caregiver_cog_compl
         self.neurologic_problems = neurologic_problems
-        self.parkinson_disease = parkinson_disease
         self.diag_duration = diag_duration
         self.depression = depression
         self.sgds_bdi_depression = sgds_bdi_depression

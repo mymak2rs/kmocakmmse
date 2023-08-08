@@ -19,10 +19,6 @@
             <table class="table">
                 <tbody>
                     <tr>
-                        <td class="left">{{ forms.patient_no.label }}</td>
-                        <td class="right">{% bootstrap_field forms.patient_no layout='horizontal' horizontal_field_class='col-md-4' show_label=False %}</td>
-                    </tr>
-                    <tr>
                         <td class="left">{{ forms.sex.label }}</td>
                         <td class="right">{% bootstrap_field forms.sex form_check_class='form-check form-check-inline' layout='horizontal' horizontal_field_class='col-md-5' show_label=False %}</td>
                     </tr>
@@ -82,10 +78,6 @@
                         <td class="left">{{ forms.motor_updrs_score.label }}</td>
                         <td class="right">{% bootstrap_field forms.motor_updrs_score layout='horizontal' horizontal_field_class='col-md-4' show_label=False %}</td>
                     </tr>
-                    <tr>
-                        <td class="left">{{ forms.kmoca_total.label }}</td>
-                        <td class="right">{% bootstrap_field forms.kmoca_total layout='horizontal' horizontal_field_class='col-md-4' addon_after='/30' show_label=False %}</td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -102,9 +94,9 @@
 
 {% block javascript %}
 <script>
-    var edu = '{{ edu1 }}';
-    var first = '{{ first }}';
     var error = '{{ error }}';
+    var cutoff = '{{ cutoff }}';
+    var machine = '{{ machine }}';
 </script>
 <script src="{% static 'js/info.js' %}"></script>
 {% endblock %}
