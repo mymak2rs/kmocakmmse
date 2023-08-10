@@ -35,9 +35,10 @@ def home(request, context={}):
 
 def info(request):
     patient_form = PatientForm()
+    kmoca_form = KMoCAForm()
     cutoff = request.session.get('cutoff', '')
     machine = request.session.get('machine', '')
-    context = {'forms': patient_form, 'cutoff': cutoff, 'machine': machine }
+    context = {'forms': patient_form, 'mocaform': kmoca_form, 'cutoff': cutoff, 'machine': machine }
 
         
     if request.method == 'GET':
@@ -63,30 +64,24 @@ def info(request):
                     context['error'] = True
                     return render(request, 'main/info.html', context)
 
-                request.session['info'] = True
-                
-                patient_info = patient_form.cleaned_data
-                if patient_info['education'] == 999.0:
-                    patient_info['education'] = edu
-                request.session['patient_info'] = patient_info
-                      
-                return redirect('myapp:interpretation')
-
-            else:
-                
-                patient_info = patient_form.cleaned_data
-                if patient_info['education'] == 999.0:
-                    patient_info['education'] = edu
-                request.session['patient_info'] = patient_info
-                
-                return redirect('myapp:confirm')
+            request.session['info'] = True
+            
+            patient_info = patient_form.cleaned_data
+            if patient_info['education'] == 999.0:
+                patient_info['education'] = edu
+            request.session['patient_info'] = patient_info
+                  
+            return redirect('myapp:interpretation')
 
         else:   # error 전달
             context['forms'] = patient_form
             if patient_form.errors:
                 for value in patient_form.errors.values():
                     context['error'] = value
-        return render(request, 'main/info.html', context)
+        if cutoff:
+            return render(request, 'main/info_cutoff.html', context)
+        else:
+            return render(request, 'main/info.html', context)
 
 
 def details(request):

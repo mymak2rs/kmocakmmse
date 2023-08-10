@@ -22,8 +22,8 @@ r.addEventListener('click', function(){
 });
 });
 
-if (machine == true){
-    $("#machin").click(function(e) {
+if (machine == 'True'){
+    $("#machine").click(function(e) {
         var allFilled = true;
         // my-form 안의 input들을 모두 체크
         $("#my-form input").each(function() {
@@ -43,7 +43,7 @@ if (machine == true){
             $("#my-form").submit();
         } else {
             // 모든 항목이 채워져 있지 않으면 alert 표시
-            alert("기계학습을 위한 항목을 채워주세요!");
+            alert("환자정보를 모두 입력해주세요.");
             e.preventDefault(); // form 제출 막기
         }
     });

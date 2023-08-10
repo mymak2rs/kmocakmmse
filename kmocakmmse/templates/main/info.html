@@ -6,6 +6,7 @@
 
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/info.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/details.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {% endblock %}
 
@@ -13,7 +14,7 @@
 <div style="text-align: center; width: 90%; margin: 3% auto">
     <h1>환자 정보 입력</h1>
     <form action="" method="POST" id="my-form">
-    {% csrf_token %}
+        {% csrf_token %}
         <!-- 필드별 class 지정 -->
         <div class="info-input">
             <table class="table">
@@ -65,10 +66,193 @@
                 </tbody>
             </table>
         </div>
+        <div class="moca">
+            <h1>세부 항목 입력</h1>
+            <div id = "moca" class="left">
+                <table class="table">  
+                    <thead>
+                        <h3><u> K-MoCA 결과 입력 </u></h3>
+                        <br>
+                        <tr>
+                            <th class="area">영역</th>
+                            <th class="question">문항</th>
+                            <th class="score">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;점수</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="5">시공간/집행기능</td>
+                            <td>{{ mocaform.mc_atm.label }}</td>
+                            <td>{{ mocaform.mc_atm }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_cube.label }}</td>
+                            <td>{{ mocaform.mc_cube }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_clock_cont.label }}</td>
+                            <td>{{ mocaform.mc_clock_cont }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_clock_num.label }}</td>
+                            <td>{{ mocaform.mc_clock_num }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_clock_hands.label }}</td>
+                            <td>{{ mocaform.mc_clock_hands }}</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="3">이름대기</td>
+                            <td>{{ mocaform.mc_lion.label }}</td>
+                            <td>{{ mocaform.mc_lion }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_bat.label }}</td>
+                            <td>{{ mocaform.mc_bat }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_camel.label }}</td>
+                            <td>{{ mocaform.mc_camel }}</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="2">기억력 즉각회상</td>
+                            <td>{{ mocaform.mc_re_1.label }}</td>
+                            <td>{{ mocaform.mc_re_1 }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_re_2.label }}</td>
+                            <td>{{ mocaform.mc_re_2 }}</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="4">주의력</td>
+                            <td>{{ mocaform.mc_forward.label }}</td>
+                            <td>{{ mocaform.mc_forward }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_backward.label }}</td>
+                            <td>{{ mocaform.mc_backward }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_vigilance.label }}</td>
+                            <td>{{ mocaform.mc_vigilance }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_serial_7s.label }}</td>
+                            <td>{{ mocaform.mc_serial_7s }}</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="3">언어</td>
+                            <td>{{ mocaform.mc_sentence_1.label }}</td>
+                            <td>{{ mocaform.mc_sentence_1 }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_sentence_2.label }}</td>
+                            <td>{{ mocaform.mc_sentence_2 }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_fluency.label }}</td>
+                            <td>{{ mocaform.mc_fluency }}</td>
+                        </tr>
+                        
+                        <tr>
+                            <td rowspan="2">추상력</td>
+                            <td>{{ mocaform.mc_abstraction_1.label }}</td>
+                            <td>{{ mocaform.mc_abstraction_1 }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_abstraction_2.label }}</td>
+                            <td>{{ mocaform.mc_abstraction_2 }}</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="7">지연회상</td>
+                            <td>{{ mocaform.mc_face.label }}</td>
+                            <td>{{ mocaform.mc_face }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_silks.label }}</td>
+                            <td>{{ mocaform.mc_silks }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_school.label }}</td>
+                            <td>{{ mocaform.mc_school }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_pipe.label }}</td>
+                            <td>{{ mocaform.mc_pipe }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_yellow.label }}</td>
+                            <td>{{ mocaform.mc_yellow }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_de_1.label }}</td>
+                            <td>{{ mocaform.mc_de_1 }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_de_2.label }}</td>
+                            <td>{{ mocaform.mc_de_2 }}</td>
+                        </tr>                                                
+
+                        <tr>
+                            <td rowspan="6">지남력</td>
+                            <td>{{ mocaform.mc_date.label }}</td>
+                            <td>{{ mocaform.mc_date }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_month.label }}</td>
+                            <td>{{ mocaform.mc_month }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_year.label }}</td>
+                            <td>{{ mocaform.mc_year }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_day.label }}</td>
+                            <td>{{ mocaform.mc_day }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_place.label }}</td>
+                            <td>{{ mocaform.mc_place }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ mocaform.mc_city.label }}</td>
+                            <td>{{ mocaform.mc_city }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>K-MoCA총점</td>
+                            <td> </td>
+                            <td>{{ mocaform.mc_score }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table">  
+                    <thead>
+                        <tr>
+                            <th class="area">영역</th>
+                            <th class="question">문항</th>
+                            <th class="score">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;점수</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="5">K-MMSE</td>
+                            <td>{{ mocaform.ms_pentagon.label }}</td>
+                            <td>{{ mocaform.ms_pentagon }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
                         
         <div class="button">
-            <button type="submit" form="my-form" id="cutoff" name="cutoff" class="btn btn-dark rounded-pill">인지장애 판별 (cutoffs)</button>
-            <button type="submit" form="my-form" id="machin" name="machin" class="btn btn-dark rounded-pill">인지장애 판별 (기계학습)</button>
+            <button type="submit" form="my-form" id="machine" name="machine" class="btn btn-dark rounded-pill">확인</button>
         </div>
         <br>
         <br>
@@ -83,6 +267,7 @@
     var machine = '{{ machine }}';
 </script>
 <script src="{% static 'js/info.js' %}"></script>
+<script type="text/javascript"  src="{% static 'js/details.js' %}"></script>
 {% endblock %}
 
 

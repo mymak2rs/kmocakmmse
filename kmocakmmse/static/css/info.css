@@ -1,145 +1,139 @@
 html,body{
     height: 100%;
 }
-.blank {
+.info-input .blank {
 	margin: -10px 0 0 1%;
 }
-.button{
+.info-input .button{
     text-align: center; 
 }
-#cutoff{
+.info-input #cutoff{
     margin-right: 3%;
     display: inline-block;
 }
-table, tr, td{
+.info-input table, tr, td{
     border: none;
 }
-.left{
+.info-input .left{
     text-align: right;
     width: 45%;
 }
-.right{
+.info-input .right{
     text-align: left;
     width: 50%;
 }
-input[type=number]{
+.info-input input[type=number]{
     margin-left: 5%;
 
 }
-input[type=text]{
+.info-input input[type=text]{
     margin-left: 5%;
 
 }
-.table>:not(caption)>*>* {
+.info-input .table>:not(caption)>*>* {
     vertical-align: baseline
 };
 
 @media screen and (max-width: 1400px){
-    .blank{
+    .info-input .blank{
         margin: -10px 0 0 1%;
     }
-    #cutoff{
-        margin-right: 3%;
-    }
-    input[type=number]{
+    .info-input input[type=number]{
         margin-left: 10%;
     }
-    input[type=text]{
+    .info-input input[type=text]{
         margin-left: 10%;
     }
 }
 @media screen and (max-width: 1200px){
-    .blank{
+    .info-input .blank{
         margin: -10px 0 0 2%;
     }
-    input[type=number]{
+    .info-input input[type=number]{
         margin-left: 5%;
     }
-    input[type=text]{
+    .info-input input[type=text]{
         margin-left: 5%;
     }
 }
 @media screen and (max-width: 1000px){
-    .blank{
+    .info-input .blank{
         margin: -10px 0 0 7%;
     }
     
 }
 @media screen and (max-width: 767px){
-    .blank{
+    .info-input .blank{
         margin: -20px 0 0 0;
     }
-    label{
+    .info-input label{
         text-align: center;
         padding-bottom: 5px;
     }
-    #edu{
+    .info-input #edu{
         text-align: center;
     }
-    .button{
+    .info-input .button{
         margin: 0 auto;
         text-align: center;
     }
-    .info-input{
+    .info-input .info-input{
         margin: auto;
         text-align: center;
     }
-    input[type=text]{
+    .info-input input[type=text]{
         width: 70%;
         text-align: center;
         margin:0 auto;
     }
-    input[type=number]{
+    .info-input input[type=number]{
         width: 70%;
         text-align: center;
         margin:0 auto;
     }
-    .input-group{
+    .info-input .input-group{
         width: 70%;
         text-align: center;
         margin:0 auto;
     }
 }
 @media screen and (max-width: 439px) {
-    .blank{
+    .info-input .blank{
         margin: -20px 0 0 5%;
     }
-    label{
+    .info-input label{
         text-align: center;
         padding-bottom: 5px;
     }
-    #edu{
+    .info-input #edu{
         text-align: center;
     }
-    .button{
+    .info-input .button{
         width: 100%;
         margin: 0 auto;
         text-align: center;
         justify-content : center;
     }
-    #cutoff{
+    .info-input #cutoff{
         margin-right: 0;
         margin-bottom: 5%;
         text-align: center;
     }
-    #machin{
-        margin-bottom: 5%;
-    }
-    .info-input{
+    .info-input .info-input{
         margin: auto;
         text-align: center;
     }
-    input[type=text]{
+    .info-input input[type=text]{
         width: 70%;
         text-align: center;
         margin:0 auto;
     }
-    input[type=number]{
+    .info-input input[type=number]{
         width: 70%;
         text-align: center;
         margin:0 auto;
     }
-    .input-group{
+    .info-input .input-group{
         width: 70%;
         text-align: center;
         margin:0 auto;
