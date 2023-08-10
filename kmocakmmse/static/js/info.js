@@ -32,7 +32,7 @@ if (machine == true){
                 allFilled = false;
                 return false;
             }
-            else if(id !== 'id_edu_input' && id !== 'hand_0' && id !== 'hand_1' && id !== 'hand_2' && id !== 'depress_0' && id !== 'depress_1' && id !== 'depress_2' && id !== 'kmoca_total' && id !== 'sgds' && id !== 'neu_prob_0' && id !== 'neu_prob_1' && id !== 'neu_prob_2' && $(this).val() == "") {
+            else if(id !== 'id_edu_input' && id !== 'sgds' &&  $(this).val() == "") {
                 allFilled = false;
                 return false;
             }
