@@ -10,9 +10,16 @@
 {% endblock %}
 
 {% block content %}
-
+{% if request.session.info %}
+{% else %}
+<script>
+    alert('환자 정보를 입력해주세요.'); 
+    window.location.replace("/main/");
+</script>
+{% endif %}
+    
 <div class="table_div">
-    <h5>INTERPRETATION OF MOCA WITH PENTAGON DRAWING TESTS</h5>
+    <h5>Interpretation Of MoCA Tests</h5>
     <br>
     <form action="" method="POST" id="my-form">
         {% csrf_token %}

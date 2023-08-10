@@ -53,7 +53,7 @@ def info(request):
         request.session['edu'] = edu
         
         # 데이터의 유효성을 검사하는 메소드, form.py에서 작성한 clean() 메소드 호출, 유효성 검사가 ok이면 true
-        if patient_form.is_valid():                           
+        if patient_form.is_valid():              
             if patient_form.education == 999.0:
                 patient_form.education = edu
                 
@@ -70,6 +70,13 @@ def info(request):
             if patient_info['education'] == 999.0:
                 patient_info['education'] = edu
             request.session['patient_info'] = patient_info
+            
+            if machine:
+                kmoca_form = KMoCAForm(request.POST)
+                if kmoca_form.is_valid():     
+                    kmoca = kmoca_form.cleaned_data
+                    request.session['kmoca'] = kmoca
+                
                   
             return redirect('myapp:interpretation')
 
@@ -84,81 +91,52 @@ def info(request):
             return render(request, 'main/info.html', context)
 
 
-def details(request):
-    kmoca_form = KMoCAForm()
-    patient_info = request.session.get('patient_info')
-    context = {'mocaform': kmoca_form}
-
-    if request.method == 'GET':
-        return render(request, 'main/details.html', context)
-    
-    elif request.method == 'POST':
-        kmoca_form = KMoCAForm(request.POST)
-        if (kmoca_form.is_valid()):
-            
-            if (kmoca_form.mc_score == ''):
-                kmoca_form.add_error('mc_score', '검사를 시행해주세요.')
-                context['mocaform']=kmoca_form
-                return render(request, 'main/details.html', context)
-
-            if patient_info['kmoca_total']:
-                if int(kmoca_form.mc_score) != patient_info['kmoca_total']:
-                    kmoca_form.add_error('mc_score', 'K-MoCA 총점이 다릅니다.')
-                    context['mocaform']=kmoca_form
-                    return render(request, 'main/details.html', context)
-            
-            kmoca = kmoca_form.cleaned_data
-            request.session['kmoca'] = kmoca
-            request.session['details'] = True
-            return redirect('myapp:interpretation')
-                    
-        else:
-            context['mocaform'] = kmoca_form
-            if kmoca_form.errors:
-                for value in kmoca_form.errors.values():
-                    context['error'] = value
-        return render(request, 'main/details.html', context)
-
 def interpretation(request):
+    cutoff = request.session.get('cutoff', '')
+    machine = request.session.get('machine', '')
+    
     # 데이터 불러오기
     patient_info = request.session.get('patient_info')
     kmoca = request.session.get('kmoca')
+    print(kmoca)
     
     if patient_info is None:
         return render(request, 'main/interpretation.html')
     
-    if kmoca is None:
+    if (machine) and (kmoca is None):
         return render(request, 'main/interpretation.html')
     
     # 데이터 전처리
     patient_info['sex'] = check.char2int(patient_info['sex'])
-    kmoca['mc_fluency'] = 1 if int(kmoca['mc_fluency']) >= 6 else 0
-    
     info_df = pd.DataFrame.from_dict(data=patient_info, orient='index').transpose()
-    kmoca_df = pd.DataFrame.from_dict(data=kmoca, orient='index').transpose()
     
-    moca_data = [info_df.sex, info_df.age, info_df.education, info_df.patient_cog_compl, info_df.caregiver_cog_compl, 
-                info_df.diag_duration, info_df.hy_stage, info_df.motor_updrs_score, info_df.sgds_bdi_depression
-                ]
-    
-    vssp = np.sum(list(map(int,[kmoca_df.mc_atm, kmoca_df.mc_cube, kmoca_df.mc_clock_cont, kmoca_df.mc_clock_num, kmoca_df.mc_clock_hands])))
-    name = np.sum(list(map(int,[kmoca_df.mc_lion, kmoca_df.mc_bat, kmoca_df.mc_camel])))
-    attention = np.sum(list(map(int, [kmoca_df.mc_forward,kmoca_df.mc_backward, kmoca_df.mc_vigilance, kmoca_df.mc_serial_7s])))
-    language = np.sum(list(map(int, [kmoca_df.mc_sentence_1, kmoca_df.mc_sentence_2, kmoca_df.mc_fluency])))
-    abstraction = np.sum(list(map(int, [kmoca_df.mc_abstraction_1, kmoca_df.mc_abstraction_2])))
-    memory = np.sum(list(map(int, [kmoca_df.mc_face, kmoca_df.mc_silks, kmoca_df.mc_school, kmoca_df.mc_pipe, kmoca_df.mc_yellow])))
-    orientation = np.sum(list(map(int, [kmoca_df.mc_date, kmoca_df.mc_month,kmoca_df.mc_year, kmoca_df.mc_day, kmoca_df.mc_place, kmoca_df.mc_city])))
+    if machine:
+        kmoca['mc_fluency'] = 1 if int(kmoca['mc_fluency']) >= 6 else 0
+        
+        kmoca_df = pd.DataFrame.from_dict(data=kmoca, orient='index').transpose()
+        
+        moca_data = [info_df.sex, info_df.age, info_df.education, info_df.patient_cog_compl, info_df.caregiver_cog_compl, 
+                    info_df.diag_duration, info_df.hy_stage, info_df.motor_updrs_score, info_df.sgds_bdi_depression
+                    ]
+        
+        vssp = np.sum(list(map(int,[kmoca_df.mc_atm, kmoca_df.mc_cube, kmoca_df.mc_clock_cont, kmoca_df.mc_clock_num, kmoca_df.mc_clock_hands])))
+        name = np.sum(list(map(int,[kmoca_df.mc_lion, kmoca_df.mc_bat, kmoca_df.mc_camel])))
+        attention = np.sum(list(map(int, [kmoca_df.mc_forward,kmoca_df.mc_backward, kmoca_df.mc_vigilance, kmoca_df.mc_serial_7s])))
+        language = np.sum(list(map(int, [kmoca_df.mc_sentence_1, kmoca_df.mc_sentence_2, kmoca_df.mc_fluency])))
+        abstraction = np.sum(list(map(int, [kmoca_df.mc_abstraction_1, kmoca_df.mc_abstraction_2])))
+        memory = np.sum(list(map(int, [kmoca_df.mc_face, kmoca_df.mc_silks, kmoca_df.mc_school, kmoca_df.mc_pipe, kmoca_df.mc_yellow])))
+        orientation = np.sum(list(map(int, [kmoca_df.mc_date, kmoca_df.mc_month,kmoca_df.mc_year, kmoca_df.mc_day, kmoca_df.mc_place, kmoca_df.mc_city])))
 
-    # model 예측
-    moca_data.extend([vssp, name, attention, language, abstraction, memory, orientation, kmoca_df.ms_pentagon])
-    moca_data = np.array([moca_data], dtype=float)
-    
-    mocab_machin_result = model.mocab_LR(moca_data)[1]
-    mocad_machin_result = model.mocad_LR(moca_data)[1]
+        # model 예측
+        moca_data.extend([vssp, name, attention, language, abstraction, memory, orientation, kmoca_df.ms_pentagon])
+        moca_data = np.array([moca_data], dtype=float)
+        
+        mocab_machin_result = model.mocab_LR(moca_data)[1]
+        mocad_machin_result = model.mocad_LR(moca_data)[1]
     
     age = int(info_df.age)
     edu = int(info_df.education)
-    moca_score = int(kmoca_df.mc_score)
+    moca_score = int(info_df.kmoca_total) if cutoff else int(kmoca_df.mc_score)
     
     cutoff_moca, moca_zscore = cutoff_norm.MoCA_cutoff(age, edu, moca_score)
     
@@ -179,9 +157,10 @@ def interpretation(request):
     else:
         context['cutoff_result'] = False
     
-    if mocab_machin_result > 50:
-        context['mocab_machin_decision'] = True
-    if mocad_machin_result > 50:
-        context['mocad_machin_decision'] = True
+    if machine:
+        if mocab_machin_result > 50:
+            context['mocab_machin_decision'] = True
+        if mocad_machin_result > 50:
+            context['mocad_machin_decision'] = True
     
     return render(request, 'main/interpretation.html', context)

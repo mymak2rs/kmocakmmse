@@ -23,3 +23,7 @@
 ```
 
 ## 진행사항
+
+### info js 유효성 검사 수정필요
+
+### interpretation에서 cutoff와 machine일 경우 나누는 코드 다듬기
