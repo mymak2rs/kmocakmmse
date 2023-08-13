@@ -6,11 +6,11 @@
 
 {% block content %}
 <div style="text-align: center; width: 100%; margin: 4rem auto">
-    <h1>K-MoCA 인지장애 판별</h1>
+    <h1>MoCA: Screening for Cognitive Dysfunction</h1>
     <form action="" method="POST" id="my-form">
         {% csrf_token %}
-        <a href="{% url 'myapp:info' %}"><button type="submit" class="btn btn-dark rounded-pill md-3" id="cutoff" name="cutoff">인지장애 판별(cutoff)</button></a>
-        <a href="{% url 'myapp:info' %}"><button type="submit" class="btn btn-dark rounded-pill md-3" id="machin" name="machin">인지장애 판별(기계학습)</button></a>
+        <a href="{% url 'myapp:info' %}"><button type="submit" class="btn btn-dark rounded-pill md-3" id="cutoff" name="cutoff">Cutoff method</button></a>
+        <a href="{% url 'myapp:info' %}"><button type="submit" class="btn btn-dark rounded-pill md-3" id="machin" name="machin">Machine learning</button></a>
     </form>
     
 </div>

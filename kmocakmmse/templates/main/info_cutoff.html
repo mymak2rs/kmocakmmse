@@ -2,7 +2,7 @@
 {% load bootstrap5 %} 
 {% load static %}
 
-{% block title %}환자 정보 입력{% endblock %}
+{% block title %}Patient Information{% endblock %}
 
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/info.css' %}">
@@ -11,7 +11,7 @@
 
 {% block content %}
 <div style="text-align: center; width: 90%; margin: 3% auto">
-    <h1>환자 정보 입력</h1>
+    <h1>Patient Information</h1>
     <form action="" method="POST" id="my-form">
     {% csrf_token %}
         <!-- 필드별 class 지정 -->

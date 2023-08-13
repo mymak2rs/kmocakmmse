@@ -15,20 +15,20 @@ class PatientForm(forms.Form):
         error_messages={'required': '성별을 선택해주세요.'}
     )
     age = forms.IntegerField(
-        label='나이',
+        label='Age (years old)',
         required=True,
         widget=forms.NumberInput(
             attrs={
                 'class': 'age',
-                'placeholder': '00 세',
+                'placeholder': '00 years old',
                 'id': 'age'
             }
         ),
-        error_messages={'required': '나이를 입력해주세요.'}
+        error_messages={'required': 'Please enter your age.'}
     )
 
     education = forms.FloatField(
-        label='교육 연한(년)',
+        label='Years in Education (years)',
         required=True,
         widget=forms.RadioSelect(
             choices=choice.CHOICE_EDU,
@@ -37,30 +37,30 @@ class PatientForm(forms.Form):
                 'id': 'edu'
             }
         ),
-        error_messages={'required': '교육 연한을 입력해주세요.'}
+        error_messages={'required': 'Please enter your education.'}
     )
 
     edu_input = forms.FloatField(
         label='',
         required=False,
         widget=forms.NumberInput(
-            attrs={'placeholder': '00년'}
+            attrs={'placeholder': '00 years'}
         )
     )
 
     kmoca_total = forms.IntegerField(
-        label='K-MoCA 점수',
+        label='MoCA score',
         required=False,
         widget=forms.NumberInput(
             attrs={
                 'class': 'kmoca_total',
-                'placeholder': 'K-MoCA 점수 입력',
+                'placeholder': 'K-MoCA score',
                 'id': 'kmoca_total'
             }
         )
     )
     patient_cog_compl = forms.CharField(
-        label='환자가 기억력 저하를 느낍니까?',
+        label='Does a patient complain memory decline?',
         required=False,
         widget=forms.RadioSelect(
             choices=choice.CHOICE_YES_NO,
@@ -72,7 +72,7 @@ class PatientForm(forms.Form):
         error_messages={'required': '환자 기억력 저하 여부를 선택해주세요.'}
     )
     caregiver_cog_compl = forms.CharField(
-        label='보호자가 환자의 기억력 저하를 느낍니까?',
+        label='Do caregivers complain memory decline of a patient?',
         required=False,
         widget=forms.RadioSelect(
             choices=choice.CHOICE_YES_NO,
@@ -84,7 +84,7 @@ class PatientForm(forms.Form):
         error_messages={'required': '보호자의 환자 기억력 저하 여부를 선택해주세요.'}
     )
     diag_duration = forms.FloatField(
-        label='파킨슨병의 유병 기간(months)',
+        label='Duration of Parkinson’s disease (months)',
         required=False,
         widget=forms.NumberInput(
             attrs={
@@ -107,7 +107,7 @@ class PatientForm(forms.Form):
         error_messages={'required': 'SGDS 혹은 BDI 우울증 여부를 선택해주세요.'}
     )
     hy_stage = forms.FloatField(
-         label='H&Y 척도',
+         label='Hoehn & Yahr stage',
         required=False,
         widget=forms.NumberInput(
             attrs={
@@ -118,7 +118,7 @@ class PatientForm(forms.Form):
         )
     )
     motor_updrs_score = forms.IntegerField(
-        label='Motor UPDRS (UPDRS Part III) 점수',
+        label='Score of part III (motor evaluation) of Unified Parkinson’s Disease Rating Scale (UPDRS)',
         required=False,
         widget=forms.NumberInput(
             attrs={
@@ -129,7 +129,7 @@ class PatientForm(forms.Form):
         )
     )
     sgds_score = forms.IntegerField(
-        label='Short Version of Geriatric Depression Scale (SGDS) 점수',
+        label='Short version of geriatric depression scale (SGDS) score',
         required=False,
         widget=forms.NumberInput(
             attrs={
@@ -176,7 +176,7 @@ class PatientForm(forms.Form):
         sgds_score = cleaned_data.get('sgds_score','')
 
         if (education == 999) and (edu_input == None):
-            return self.add_error('edu_input', '교육연한을 입력해주세요.')
+            return self.add_error('edu_input', 'Please enter your education.')
                     
         if (diag_duration != None) and (age < diag_duration/12):
             return self.add_error('age', '나이가 유병기간보다 적습니다.')

@@ -62,13 +62,14 @@ def info(request):
                     patient_form.add_error('kmoca_total', '하나라도 값을 입력해주세요.')
                     context['forms'] = patient_form
                     context['error'] = True
-                    return render(request, 'main/info.html', context)
+                    return render(request, 'main/info_cutoff.html', context)
 
                 request.session['info'] = True
                 
                 patient_info = patient_form.cleaned_data
                 if patient_info['education'] == 999.0:
                     patient_info['education'] = edu
+                print(patient_info['education'])
                 request.session['patient_info'] = patient_info
             
             elif machine:
@@ -153,7 +154,6 @@ def interpretation(request):
     info_df = pd.DataFrame.from_dict(data=patient_info, orient='index').transpose()
     
     if machine:
-        print(kmoca)
         kmoca['mc_fluency'] = 1 if int(kmoca['mc_fluency']) >= 6 else 0
         
         kmoca_df = pd.DataFrame.from_dict(data=kmoca, orient='index').transpose()
@@ -177,8 +177,8 @@ def interpretation(request):
         mocab_machin_result = model.mocab_LR(moca_data)[1]
         mocad_machin_result = model.mocad_LR(moca_data)[1]
     
-    age = int(info_df.age)
-    edu = int(info_df.education)
+    age = float(info_df.age)
+    edu = float(info_df.education)
     moca_score = int(info_df.kmoca_total) if cutoff else int(kmoca_df.mc_score)
     
     cutoff_moca, moca_zscore = cutoff_norm.MoCA_cutoff(age, edu, moca_score)
