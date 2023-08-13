@@ -3,7 +3,7 @@ import main.module.choice as choice
 
 class PatientForm(forms.Form):    
     sex = forms.CharField(
-        label='성별',
+        label='Sex',
         required=False,
         widget=forms.RadioSelect(
             choices=choice.CHOICE_SEX,
