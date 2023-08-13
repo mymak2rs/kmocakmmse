@@ -24,6 +24,6 @@
 
 ## 진행사항
 
-### info js 유효성 검사 수정필요
+### pentagon 없이 예측할 수 있는 모델 연결 필요
 
-### interpretation에서 cutoff와 machine일 경우 나누는 코드 다듬기
+### 영문으로 변경 필요

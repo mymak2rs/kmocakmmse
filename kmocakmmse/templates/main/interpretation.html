@@ -17,6 +17,13 @@
     window.location.replace("/main/");
 </script>
 {% endif %}
+{% if request.session.detail %}
+{% else %}
+<script>
+    alert('환자 정보를 입력해주세요.'); 
+    window.location.replace("/main/");
+</script>
+{% endif %}
     
 <div class="table_div">
     <h5>Interpretation Of MoCA Tests</h5>
@@ -72,10 +79,14 @@
                         <td scope="row" class="q">Machine learning with domain scores of MoCA plus pentagon drawing</td>
                         <td>PD-NC VS.<br><strong>PD-MCI or PDD</strong></td>
                         <td>NA</td>
+                        {% if machine %}
                         {% if mocab_machin_decision %}
                         <td class="r"><font color="yellow">Cognitive impairment<br>인지장애 확률 {{ mocab_machin_result }}%</font></td>
                         {% else %}
                         <td class="r"><font color="#01DF01">normal cognition<br>인지장애 확률 {{ mocab_machin_result }}%</font></td>
+                        {% endif %}
+                        {% else %}
+                        <td>NA</td>
                         {% endif %}
                     </tr>
                     <tr>
@@ -92,10 +103,14 @@
                         <td scope="row" class="q">Machine learning with domain scores of MoCA plus pentagon drawing</td>
                         <td>PD-NC or <br>PD-MCI VS. <strong>PDD</strong></td>
                         <td>NA</td>
+                        {% if machine %}
                         {% if mocad_machin_decision %}
                         <td class="r"><font color="red">dementia<br>치매 확률 {{ mocad_machin_result }}%</font></td>
                         {% else %}
                         <td class="r"><font color="#01DF01">normal cognition<br>치매 확률 {{ mocad_machin_result }}%</font></td>
+                        {% endif %}
+                        {% else %}
+                        <td>NA</td>
                         {% endif %}
                     </tr>
                     <tr>

@@ -64,19 +64,62 @@ def info(request):
                     context['error'] = True
                     return render(request, 'main/info.html', context)
 
-            request.session['info'] = True
+                request.session['info'] = True
+                
+                patient_info = patient_form.cleaned_data
+                if patient_info['education'] == 999.0:
+                    patient_info['education'] = edu
+                request.session['patient_info'] = patient_info
             
-            patient_info = patient_form.cleaned_data
-            if patient_info['education'] == 999.0:
-                patient_info['education'] = edu
-            request.session['patient_info'] = patient_info
-            
-            if machine:
+            elif machine:
+                ## 기계학습 필수입력 에러처리
+                if not patient_form.sex:
+                    patient_form.add_error('sex', '성별을 입력해주세요.')
+                    context['forms'] = patient_form
+                    context['error'] = True
+                if not patient_form.patient_cog_compl:
+                    patient_form.add_error('patient_cog_compl', '환자 기억력 저하 호소 여부를 입력해주세요.')
+                    context['forms'] = patient_form
+                    context['error'] = True
+                if not patient_form.caregiver_cog_compl:
+                    patient_form.add_error('caregiver_cog_compl', '보호자 기억력 저하 호소 여부를 입력해주세요.')
+                    context['forms'] = patient_form
+                    context['error'] = True
+                if not patient_form.sgds_bdi_depression:
+                    patient_form.add_error('sgds_bdi_depression', '우울증 여부를 입력해주세요.')
+                    context['forms'] = patient_form
+                    context['error'] = True
+                if not patient_form.sgds_score:
+                    patient_form.add_error('sgds_score', 'SGDS 점수를 입력해주세요.')
+                    context['forms'] = patient_form
+                    context['error'] = True
+                if not patient_form.diag_duration:
+                    patient_form.add_error('diag_duration', '유병기간을 입력해주세요.')
+                    context['forms'] = patient_form
+                    context['error'] = True
+                if not patient_form.hy_stage:
+                    patient_form.add_error('hy_stage', 'H&Y 척도를 입력해주세요.')
+                    context['forms'] = patient_form
+                    context['error'] = True
+                if not patient_form.motor_updrs_score:
+                    patient_form.add_error('motor_updrs_score', 'Motor UPDRS 점수를 입력해주세요.')
+                    context['forms'] = patient_form
+                    context['error'] = True
+                    return render(request, 'main/info.html', context)
+                
                 kmoca_form = KMoCAForm(request.POST)
                 if kmoca_form.is_valid():     
                     kmoca = kmoca_form.cleaned_data
                     request.session['kmoca'] = kmoca
                 
+                request.session['info'] = True
+                request.session['detail'] = True
+                
+                patient_info = patient_form.cleaned_data
+                if patient_info['education'] == 999.0:
+                    patient_info['education'] = edu
+                request.session['patient_info'] = patient_info
+                    
                   
             return redirect('myapp:interpretation')
 
@@ -98,7 +141,6 @@ def interpretation(request):
     # 데이터 불러오기
     patient_info = request.session.get('patient_info')
     kmoca = request.session.get('kmoca')
-    print(kmoca)
     
     if patient_info is None:
         return render(request, 'main/interpretation.html')
@@ -111,6 +153,7 @@ def interpretation(request):
     info_df = pd.DataFrame.from_dict(data=patient_info, orient='index').transpose()
     
     if machine:
+        print(kmoca)
         kmoca['mc_fluency'] = 1 if int(kmoca['mc_fluency']) >= 6 else 0
         
         kmoca_df = pd.DataFrame.from_dict(data=kmoca, orient='index').transpose()
@@ -127,7 +170,7 @@ def interpretation(request):
         memory = np.sum(list(map(int, [kmoca_df.mc_face, kmoca_df.mc_silks, kmoca_df.mc_school, kmoca_df.mc_pipe, kmoca_df.mc_yellow])))
         orientation = np.sum(list(map(int, [kmoca_df.mc_date, kmoca_df.mc_month,kmoca_df.mc_year, kmoca_df.mc_day, kmoca_df.mc_place, kmoca_df.mc_city])))
 
-        # model 예측
+        # model 예측(pentagon)
         moca_data.extend([vssp, name, attention, language, abstraction, memory, orientation, kmoca_df.ms_pentagon])
         moca_data = np.array([moca_data], dtype=float)
         
@@ -144,23 +187,31 @@ def interpretation(request):
                 'age': age,
                 'edu': edu,
                 'KMoCA': moca_score,
-                'pentagon': 'pass' if int(kmoca_df.ms_pentagon) == 1 else 'fail',
+                'pentagon': 'NA',
                 'moca_cutoff': int(cutoff_moca),
-                'mocab_machin_result': str(mocab_machin_result) if kmoca else '',
-                'mocad_machin_result': str(mocad_machin_result) if kmoca else '',
                 'mocab_machin_decision': False,
-                'mocad_machin_decision': False
+                'mocad_machin_decision': False,
+                'machine': machine,
                }
     
     if cutoff_moca > moca_score:
         context['cutoff_result'] = True
     else:
         context['cutoff_result'] = False
-    
+        
     if machine:
+        if int(kmoca_df.ms_pentagon) == 1:
+            context['pentagon'] = 'pass'
+        elif int(kmoca_df.ms_pentagon) == 0:
+            context['pentagon'] = 'fail'
+            
         if mocab_machin_result > 50:
             context['mocab_machin_decision'] = True
         if mocad_machin_result > 50:
             context['mocad_machin_decision'] = True
+        
+        # pentagon에 따라 모델을 변경 될 수 있음
+        context['mocab_machin_result'] = str(mocab_machin_result)
+        context['mocad_machin_result'] = str(mocad_machin_result)
     
     return render(request, 'main/interpretation.html', context)
