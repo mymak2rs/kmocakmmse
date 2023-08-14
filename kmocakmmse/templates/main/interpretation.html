@@ -33,18 +33,18 @@
         <div class="res_tbl_wrap">
             <table class="tb_margin">
                 <tr>
-                    <td>나이: {{ age }}세</td>
-                    <td>교육연한: 
+                    <td>Age: {{ age }} years old</td>
+                    <td>Years in Education: 
                         {% if edu == 0.0 %}
-                        무학문맹
+                        Illiteracy
                         {% elif edu == 0.5 %}
-                        무학문해
+                        Out-of-school literacy
                         {% else %}
-                        {{ edu }} 년
+                        {{ edu }} years
                         {% endif %}
 
                     </td>
-                    <td>MoCA 총점: {{ KMoCA }}/30</td>
+                    <td>MoCA Total: {{ KMoCA }}/30</td>
                     <td>Pentagon: {{ pentagon }}</td>
                 </tr>
             </table>
@@ -60,28 +60,22 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td scope="row" class="q">Cutoff of 26</td>
-                        <td>PD-NC VS.<br><strong>PD-MCI or PDD</strong></td>
-                        <td>00</td>
-                        <td class="r">RESULT</td>
-                    </tr>
-                    <tr>
                         <td scope="row" class="q">Age & education adjusted cutoffs</td>
                         <td>PD-NC VS.<br><strong>PD-MCI or PDD</strong></td>
                         <td>{{ moca_cutoff }}</td>
                         {% if cutoff_result %}
-                        <td class="r"><font color="yellow">Cognitive impairment</font></td>
+                        <td class="r"><font color="#f89b00">Cognitive impairment</font></td>
                         {% else %}
                         <td class="r"><font color="#01DF01">normal cognition</font></td>
                         {% endif %}
                     </tr>
                     <tr>
-                        <td scope="row" class="q">Machine learning with domain scores of MoCA plus pentagon drawing</td>
+                        <td scope="row" class="q">Machine learning with domain scores of MoCA</td>
                         <td>PD-NC VS.<br><strong>PD-MCI or PDD</strong></td>
                         <td>NA</td>
                         {% if machine %}
                         {% if mocab_machin_decision %}
-                        <td class="r"><font color="yellow">Cognitive impairment<br>인지장애 확률 {{ mocab_machin_result }}%</font></td>
+                        <td class="r"><font color="#f89b00">Cognitive impairment<br>인지장애 확률 {{ mocab_machin_result }}%</font></td>
                         {% else %}
                         <td class="r"><font color="#01DF01">normal cognition<br>인지장애 확률 {{ mocab_machin_result }}%</font></td>
                         {% endif %}
@@ -94,13 +88,13 @@
                         <td>PD-NC or <br>PD-MCI VS. <strong>PDD</strong></td>
                         <td>{{ moca_cutoff }}</td>
                         {% if cutoff_result %}
-                        <td class="r"><font color="yellow">Cognitive impairment</font></td>
+                        <td class="r"><font color="#f89b00">Cognitive impairment</font></td>
                         {% else %}
                         <td class="r"><font color="#01DF01">normal cognition</font></td>
                         {% endif %}
                     </tr>
                     <tr>
-                        <td scope="row" class="q">Machine learning with domain scores of MoCA plus pentagon drawing</td>
+                        <td scope="row" class="q">Machine learning with domain scores of MoCA</td>
                         <td>PD-NC or <br>PD-MCI VS. <strong>PDD</strong></td>
                         <td>NA</td>
                         {% if machine %}

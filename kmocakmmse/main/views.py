@@ -69,7 +69,6 @@ def info(request):
                 patient_info = patient_form.cleaned_data
                 if patient_info['education'] == 999.0:
                     patient_info['education'] = edu
-                print(patient_info['education'])
                 request.session['patient_info'] = patient_info
             
             elif machine:
@@ -177,7 +176,7 @@ def interpretation(request):
         mocab_machin_result = model.mocab_LR(moca_data)[1]
         mocad_machin_result = model.mocad_LR(moca_data)[1]
     
-    age = float(info_df.age)
+    age = int(info_df.age)
     edu = float(info_df.education)
     moca_score = int(info_df.kmoca_total) if cutoff else int(kmoca_df.mc_score)
     
