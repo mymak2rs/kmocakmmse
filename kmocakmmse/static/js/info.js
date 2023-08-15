@@ -21,31 +21,3 @@ r.addEventListener('click', function(){
     }
 });
 });
-
-// if (machine == 'True'){
-//     $("#machine").click(function(e) {
-//         var allFilled = true;
-//         // my-form 안의 input들을 모두 체크
-//         $("#my-form input").each(function() {
-//             var id = $(this).attr('id');
-//             if(id === 'id_edu_input' && $('#edu_0').is(':checked') && $(this).val() == "") {
-//                 allFilled = false;
-//                 return false;
-//             }
-//             else if(id !== 'id_edu_input' && id !== 'sgds' &&  $(this).val() == "") {
-//                 allFilled = false;
-//                 return false;
-//             }
-//         });
-    
-//         if(allFilled) {
-//             // 모든 항목이 채워져 있으면 form을 제출
-//             $("#my-form").submit();
-//         } else {
-//             // 모든 항목이 채워져 있지 않으면 alert 표시
-//             alert("환자정보를 모두 입력해주세요.");
-//             e.preventDefault(); // form 제출 막기
-//         }
-//     });
-// }
-

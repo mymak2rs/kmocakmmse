@@ -95,7 +95,7 @@ class PatientForm(forms.Form):
         )
     )
     sgds_bdi_depression = forms.CharField(
-        label='병원에서 우울증을 진단받은 적이 있습니까?',
+        label='Has a patient been diagnosed with depression?',
         required=False,
         widget=forms.RadioSelect(
             choices=choice.CHOICE_YES_NO,
@@ -759,6 +759,7 @@ class KMoCAForm(forms.Form):
         if (any('' == i for i in KMoCAList) and any(KMoCAList)):
             return self.add_error('mc_atm','모든 K-MoCA 항목을 입력해 주세요')
         elif (mc_score != '') and (sum(map(int, kmoca_details)) != int(mc_score)):
+            print('aklsd12421421kgdsahli')
             return self.add_error('mc_score', 'K-MoCA 총점을 확인해주세요.')
         elif (mc_re_1!=None) and (int(mc_re_1)<0 or int(mc_re_1)>=6):
             return self.add_error('mc_re_1','K-MoCA 기억력 즉각회상 1차 점수를 확인해주세요.(0~5 숫자만 입력해주세요)')
