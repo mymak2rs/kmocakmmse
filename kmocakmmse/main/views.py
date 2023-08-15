@@ -140,10 +140,12 @@ def interpretation(request):
         
         kmoca_df = pd.DataFrame.from_dict(data=kmoca, orient='index').transpose()
         
-        moca_data = [info_df.sex, info_df.age, info_df.education, info_df.patient_cog_compl, info_df.caregiver_cog_compl, 
+        moca_data_li = [info_df.sex, info_df.age, info_df.education, info_df.patient_cog_compl, info_df.caregiver_cog_compl, 
                     info_df.diag_duration, info_df.hy_stage, info_df.motor_updrs_score, info_df.sgds_bdi_depression
                     ]
-        
+        moca_data = moca_data_li.copy()
+        pentagon_data = moca_data_li.copy()
+
         vssp = np.sum(list(map(int,[kmoca_df.mc_atm, kmoca_df.mc_cube, kmoca_df.mc_clock_cont, kmoca_df.mc_clock_num, kmoca_df.mc_clock_hands])))
         name = np.sum(list(map(int,[kmoca_df.mc_lion, kmoca_df.mc_bat, kmoca_df.mc_camel])))
         attention = np.sum(list(map(int, [kmoca_df.mc_forward,kmoca_df.mc_backward, kmoca_df.mc_vigilance, kmoca_df.mc_serial_7s])))
@@ -151,20 +153,22 @@ def interpretation(request):
         abstraction = np.sum(list(map(int, [kmoca_df.mc_abstraction_1, kmoca_df.mc_abstraction_2])))
         memory = np.sum(list(map(int, [kmoca_df.mc_face, kmoca_df.mc_silks, kmoca_df.mc_school, kmoca_df.mc_pipe, kmoca_df.mc_yellow])))
         orientation = np.sum(list(map(int, [kmoca_df.mc_date, kmoca_df.mc_month,kmoca_df.mc_year, kmoca_df.mc_day, kmoca_df.mc_place, kmoca_df.mc_city])))
-        pentagon = kmoca_df.ms_pentagon
+        pentagon = list(kmoca_df.ms_pentagon)[0]
         
         moca_data.extend([vssp, name, attention, language, abstraction, memory, orientation])
+        
+        # model 예측(pentagon)
+        if pentagon != '-':
+            pentagon_data.extend([vssp, name, attention, language, abstraction, memory, orientation, kmoca_df.ms_pentagon])
+            pentagon_data = np.array([pentagon_data], dtype=float)
+            print(pentagon_data)
+            mocab_pentagon_result = model.mocab_pentagon_LR(pentagon_data)[1]
+            mocad_pentagon_result = model.mocad_pentagon_LR(pentagon_data)[1]
+        
         moca_data = np.array([moca_data], dtype=float)
         
         mocab_machin_result = model.mocab_LR(moca_data)[1]
         mocad_machin_result = model.mocad_LR(moca_data)[1]
-        
-        # model 예측(pentagon)
-        if pentagon != '-':
-            moca_data.extend([pentagon])
-            mocab_pentagon_result = model.mocab_pentagon_LR(moca_data)[1]
-            mocad_pentagon_result = model.mocad_pentagon_LR(moca_data)[1]
-            
     
     age = int(info_df.age)
     edu = float(info_df.education)
@@ -191,20 +195,28 @@ def interpretation(request):
         context['cutoff_result'] = False
         
     if machine:
-        if pentagon == '-':
-            context['pentagon'] = 'NA'
-        elif pentagon == '1':
-            context['pentagon'] = 'pass'
+        if pentagon != '-':
+            if pentagon == '1':
+                context['pentagon'] = 'pass'
+            else:
+                context['pentagon'] = 'fail'
+            if mocab_pentagon_result > 50:
+                context['mocab_pentagon_decision'] = True
+            if mocad_pentagon_result > 50:
+                context['mocad_pentagon_decision'] = True
+            context['mocab_pentagon_result'] = str(mocab_pentagon_result)
+            context['mocad_pentagon_result'] = str(mocad_pentagon_result)
+            
         else:
-            context['pentagon'] = 'fail'
+            context['pentagon'] = 'NA'
             
         if mocab_machin_result > 50:
             context['mocab_machin_decision'] = True
         if mocad_machin_result > 50:
             context['mocad_machin_decision'] = True
-        
-        # pentagon에 따라 모델을 변경 될 수 있음
+    
         context['mocab_machin_result'] = str(mocab_machin_result)
         context['mocad_machin_result'] = str(mocad_machin_result)
+        
     
     return render(request, 'main/interpretation.html', context)

@@ -53,7 +53,11 @@
                 </thead>
                 <tbody>
                     <tr>
+                        {% if pentagon == 'NA' %}
                         <td rowspan="2" scope="row" class="q"><strong>PD-NC</strong><br> VS. <br>PD-MCI or PDD</td>
+                        {% else %}
+                        <td rowspan="3" scope="row" class="q"><strong>PD-NC</strong><br> VS. <br>PD-MCI or PDD</td>
+                        {% endif %}
                         <td style="text-align: left;"><strong>Cutoff</strong> with<br> age & education adjusted</td>
                         <td>{{ moca_cutoff }}</td>
                         {% if cutoff_result %}
@@ -75,8 +79,24 @@
                         <td>NA</td>
                         {% endif %}
                     </tr>
+                    {% if pentagon != 'NA' %}
                     <tr>
+                        <td scope="row" class="q"><strong>Machine learning</strong> with domain scores of MoCA plus pentagon</td>
+                        <td>NA</td>
+                        {% if mocab_pentagon_decision %}
+                        <td class="r"><font color="#f89b00">Cognitive impairment<br>인지장애 확률 {{ mocab_pentagon_result }}%</font></td>
+                        {% else %}
+                        <td class="r"><font color="#01DF01">normal cognition<br>인지장애 확률 {{ mocab_pentagon_result }}%</font></td>
+                        {% endif %}
+                    </tr>
+                    {% else %}
+                    {% endif %}
+                    <tr>
+                        {% if pentagon == 'NA' %}
                         <td rowspan="2" scope="row" class="q">PD-NC or<br> PD-MCI<br> VS. <br><strong>PDD</strong></td>
+                        {% else %}
+                        <td rowspan="3" scope="row" class="q">PD-NC or<br> PD-MCI<br> VS. <br><strong>PDD</strong></td>
+                        {% endif %}
                         <td style="text-align: left;"><strong>Cutoff</strong> with<br> age & education adjusted</td>
                         <td>{{ moca_cutoff }}</td>
                         {% if cutoff_result %}
@@ -98,6 +118,18 @@
                         <td>NA</td>
                         {% endif %}
                     </tr>
+                    {% if pentagon != 'NA' %}
+                    <tr>
+                        <td scope="row" class="q"><strong>Machine learning</strong> with domain scores of MoCA plus pentagon</td>
+                        <td>NA</td>
+                        {% if mocad_pentagon_decision %}
+                        <td class="r"><font color="red">dementia<br>치매 확률 {{ mocad_pentagon_result }}%</font></td>
+                        {% else %}
+                        <td class="r"><font color="#01DF01">normal cognition<br>치매 확률 {{ mocad_pentagon_result }}%</font></td>
+                        {% endif %}
+                    </tr>
+                    {% else %}
+                    {% endif %}
                     <tr>
                         <td colspan="4" scope="row" class="q">Abbreviations: PD, Parkinson’s disease; PD-NC, PD with normal cognition; PD-MCI, PD with mild cognitive impairment; PDD, PD with dementia; NA, not applicable; MoCA, Montreal Cognitive Assessment.</td>
                     </tr>
