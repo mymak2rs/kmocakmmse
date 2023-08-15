@@ -1,6 +1,7 @@
 import statsmodels.api as sm
 import joblib
 import sys
+import numpy as np
 
 sys.path.append('./')
 
@@ -18,9 +19,19 @@ kmoca_sum_target = ['K-MoCA_시공간/집행기능_1-가->5-마', 'K-MoCA_시공
 
 
 
+def mocab_pentagon_LR(input):
+    model = joblib.load('D:/DBLab/kmocakmmse/kmocakmmse/kmocakmmse/main/regression/datasetB/best_model_b_pentagon.pkl')
+    predict = np.round(model.predict_proba(input)*100, 2)
+    return predict.ravel()
+
 def mocab_LR(input):
     model = joblib.load('D:/DBLab/kmocakmmse/kmocakmmse/kmocakmmse/main/regression/datasetB/best_model_b.pkl')
-    predict = model.predict_proba(input).round(4)*100
+    predict = np.round(model.predict_proba(input)*100, 2)
+    return predict.ravel()
+
+def mocad_pentagon_LR(input):
+    model = joblib.load('D:/DBLab/kmocakmmse/kmocakmmse/kmocakmmse/main/regression/datasetD/best_model_d_pentagon.pkl')
+    predict = np.round(model.predict_proba(input)*100, 2)
     return predict.ravel()
 
 def mocad_LR(input):
