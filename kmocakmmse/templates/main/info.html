@@ -16,7 +16,7 @@
     <form action="" method="POST" id="my-form">
         {% csrf_token %}
         <!-- 필드별 class 지정 -->
-        <div class="info-input">
+        <div class="info-input" id="info-input">
             <table class="table">
                 <tbody>
                     <tr>
@@ -67,7 +67,7 @@
             </table>
         </div>
         <div class="moca">
-            <h1>세부 항목 입력</h1>
+            {% bootstrap_form_errors mocaform layout='inline' %}
             <div id = "moca" class="left">
                 <table class="table">  
                     <thead>
@@ -252,7 +252,7 @@
         
                         
         <div class="button">
-            <button type="submit" form="my-form" id="machine" name="machine" class="btn btn-dark rounded-pill">확인</button>
+            <button type="submit" form="my-form" id="machine" name="machine" class="btn btn-dark rounded-pill">OK</button>
         </div>
         <br>
         <br>

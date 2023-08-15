@@ -2,7 +2,7 @@
 {% load bootstrap5 %} 
 {% load static %}
 
-{% block title %} Interpretation Of MoCA Tests {% endblock %}
+{% block title %} Interpretation Of MoCA Test {% endblock %}
 
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/interpretation.css' %}">
@@ -17,6 +17,7 @@
     window.location.replace("/main/");
 </script>
 {% endif %}
+{% if request.session.machine %}
 {% if request.session.detail %}
 {% else %}
 <script>
@@ -24,9 +25,11 @@
     window.location.replace("/main/");
 </script>
 {% endif %}
+{% else %}
+{% endif %}
     
 <div class="table_div">
-    <h5>Interpretation Of MoCA Tests</h5>
+    <h5>Interpretation Of MoCA Test</h5>
     <br>
     <form action="" method="POST" id="my-form">
         {% csrf_token %}
@@ -114,7 +117,7 @@
             </table><br>
         </div>
         <div id="footer">
-            <a href="{% url 'myapp:home' %}" class="btn btn-dark rounded-pill md-5">돌아가기</a>
+            <a href="{% url 'myapp:home' %}" class="btn btn-dark rounded-pill md-5">Home</a>
         </div>
     </form>
 </div>

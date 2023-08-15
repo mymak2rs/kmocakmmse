@@ -43,26 +43,28 @@ def info(request):
         
     if request.method == 'GET':
         if cutoff:
+            patient_form.fields['kmoca_total'].required = True
             return render(request, 'main/info_cutoff.html', context)
         else:
+            patient_form.fields['sex'].required = True
+            patient_form.fields['patient_cog_compl'].required = True
+            patient_form.fields['caregiver_cog_compl'].required = True
+            patient_form.fields['sgds_bdi_depression'].required = True
+            patient_form.fields['sgds_score'].required = True
+            patient_form.fields['diag_duration'].required = True
+            patient_form.fields['hy_stage'].required = True
+            patient_form.fields['motor_updrs_score'].required = True
             return render(request, 'main/info.html', context)
     
     elif request.method == 'POST':
-        patient_form = PatientForm(request.POST)
-        edu = request.POST.get('edu_input')
-        request.session['edu'] = edu
-        
-        # 데이터의 유효성을 검사하는 메소드, form.py에서 작성한 clean() 메소드 호출, 유효성 검사가 ok이면 true
-        if patient_form.is_valid():              
-            if patient_form.education == 999.0:
-                patient_form.education = edu
-                
-            if cutoff:
-                if patient_form.kmoca_total == None:
-                    patient_form.add_error('kmoca_total', '하나라도 값을 입력해주세요.')
-                    context['forms'] = patient_form
-                    context['error'] = True
-                    return render(request, 'main/info_cutoff.html', context)
+        if cutoff:          
+            patient_form = PatientForm(request.POST)
+            edu = request.POST.get('edu_input')
+            request.session['edu'] = edu
+            # 데이터의 유효성을 검사하는 메소드, form.py에서 작성한 clean() 메소드 호출, 유효성 검사가 ok이면 true
+            if patient_form.is_valid():
+                if patient_form.education == 999.0:
+                    patient_form.education = edu
 
                 request.session['info'] = True
                 
@@ -70,47 +72,28 @@ def info(request):
                 if patient_info['education'] == 999.0:
                     patient_info['education'] = edu
                 request.session['patient_info'] = patient_info
-            
-            elif machine:
-                ## 기계학습 필수입력 에러처리
-                if not patient_form.sex:
-                    patient_form.add_error('sex', '성별을 입력해주세요.')
-                    context['forms'] = patient_form
-                    context['error'] = True
-                if not patient_form.patient_cog_compl:
-                    patient_form.add_error('patient_cog_compl', '환자 기억력 저하 호소 여부를 입력해주세요.')
-                    context['forms'] = patient_form
-                    context['error'] = True
-                if not patient_form.caregiver_cog_compl:
-                    patient_form.add_error('caregiver_cog_compl', '보호자 기억력 저하 호소 여부를 입력해주세요.')
-                    context['forms'] = patient_form
-                    context['error'] = True
-                if not patient_form.sgds_bdi_depression:
-                    patient_form.add_error('sgds_bdi_depression', '우울증 여부를 입력해주세요.')
-                    context['forms'] = patient_form
-                    context['error'] = True
-                if not patient_form.sgds_score:
-                    patient_form.add_error('sgds_score', 'SGDS 점수를 입력해주세요.')
-                    context['forms'] = patient_form
-                    context['error'] = True
-                if not patient_form.diag_duration:
-                    patient_form.add_error('diag_duration', '유병기간을 입력해주세요.')
-                    context['forms'] = patient_form
-                    context['error'] = True
-                if not patient_form.hy_stage:
-                    patient_form.add_error('hy_stage', 'H&Y 척도를 입력해주세요.')
-                    context['forms'] = patient_form
-                    context['error'] = True
-                if not patient_form.motor_updrs_score:
-                    patient_form.add_error('motor_updrs_score', 'Motor UPDRS 점수를 입력해주세요.')
-                    context['forms'] = patient_form
-                    context['error'] = True
-                    return render(request, 'main/info.html', context)
                 
-                kmoca_form = KMoCAForm(request.POST)
-                if kmoca_form.is_valid():     
-                    kmoca = kmoca_form.cleaned_data
-                    request.session['kmoca'] = kmoca
+                return redirect('myapp:interpretation')
+            
+            else:   # error 전달
+                context['forms'] = patient_form
+                if patient_form.errors:
+                    for value in patient_form.errors.values():
+                        context['error'] = value
+            return render(request, 'main/info_cutoff.html', context)
+            
+        elif machine:
+            patient_form = PatientForm(request.POST)
+            kmoca_form = KMoCAForm(request.POST)
+            edu = request.POST.get('edu_input')
+            request.session['edu'] = edu
+            
+            if patient_form.is_valid() and kmoca_form.is_valid():
+                if patient_form.education == 999.0:
+                    patient_form.education = edu
+                
+                kmoca = kmoca_form.cleaned_data
+                request.session['kmoca'] = kmoca
                 
                 request.session['info'] = True
                 request.session['detail'] = True
@@ -119,19 +102,19 @@ def info(request):
                 if patient_info['education'] == 999.0:
                     patient_info['education'] = edu
                 request.session['patient_info'] = patient_info
-                    
-                  
-            return redirect('myapp:interpretation')
-
-        else:   # error 전달
-            context['forms'] = patient_form
-            if patient_form.errors:
-                for value in patient_form.errors.values():
-                    context['error'] = value
-        if cutoff:
-            return render(request, 'main/info_cutoff.html', context)
-        else:
-            return render(request, 'main/info.html', context)
+                
+                return redirect('myapp:interpretation')
+            
+            else:   # error 전달
+                context['forms'] = patient_form
+                context['mocaform'] = kmoca_form
+                if patient_form.errors:
+                    for value in patient_form.errors.values():
+                        context['error'] = value
+                if kmoca_form.errors:
+                    for value in kmoca_form.errors.values():
+                        context['error'] = value
+            return render(request, 'main/info.html', context)                
 
 
 def interpretation(request):
@@ -173,8 +156,8 @@ def interpretation(request):
         moca_data.extend([vssp, name, attention, language, abstraction, memory, orientation, kmoca_df.ms_pentagon])
         moca_data = np.array([moca_data], dtype=float)
         
-        mocab_machin_result = model.mocab_LR(moca_data)[1]
-        mocad_machin_result = model.mocad_LR(moca_data)[1]
+        mocab_machin_result = np.round(model.mocab_LR(moca_data)[1], 2)
+        mocad_machin_result = np.round(model.mocad_LR(moca_data)[1], 2)
     
     age = int(info_df.age)
     edu = float(info_df.education)
