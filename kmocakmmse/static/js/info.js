@@ -21,7 +21,11 @@ r.addEventListener('click', function(){
     }
 });
 });
-
+$(document).ready(function() {
+    $('#kmoca_total').attr('min', 0);
+    $('#age').attr('min', 0);
+    $('#id_edu_input').attr('min', 0);
+});
 // if (machine == 'True'){
 //     $("#machine").click(function(e) {
 //         var allFilled = true;
