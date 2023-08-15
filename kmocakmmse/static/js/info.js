@@ -25,7 +25,28 @@ $(document).ready(function() {
     $('#kmoca_total').attr('min', 0);
     $('#age').attr('min', 0);
     $('#id_edu_input').attr('min', 0);
+    $('#sgds').attr('min', 0);
+    $('#sgds').attr('max', 15);
+    $('#dia_duration').attr('min', 0);
+    $('#hy').attr('min', 0);
+    $('#updrs').attr('min', 0);
 });
+$(document).ready(function() {
+    $('#kmoca_total, #age, #id_edu_input, #sgds, #dia_duration, #hy, #updrs').on('change', function() {
+        // 0 미만의 값을 입력 받으면 0으로 설정
+        if ($(this).val() < 0) {
+            $(this).val(0);
+        }
+    });
+    
+    $('#sgds').on('change', function() {
+        // 15 이상의 값을 입력 받으면 15로 설정
+        if ($(this).val() > 15) {
+            $(this).val(15);
+        }
+    });
+});
+
 // if (machine == 'True'){
 //     $("#machine").click(function(e) {
 //         var allFilled = true;
