@@ -71,7 +71,22 @@
 .moca input[type=text]{
     width: 60%;
 }   
+.moca .table {
+    border-collapse: collapse;  /* 테두리를 하나로 합칩니다. */
+}
 
+.moca .table th, .moca .table td {
+    border: 1px solid black;  /* 각 셀에 테두리를 추가합니다. */
+}
+.MC_Score{
+    text-align: center;
+}
+.KMMSE{
+    vertical-align: middle;
+}
+.moca ul{
+    margin : 0 auto;
+}
 @media screen and (max-width: 1000px) {
     .moca div.left{
         width:100%;
