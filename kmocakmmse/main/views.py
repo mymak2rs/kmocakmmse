@@ -151,13 +151,20 @@ def interpretation(request):
         abstraction = np.sum(list(map(int, [kmoca_df.mc_abstraction_1, kmoca_df.mc_abstraction_2])))
         memory = np.sum(list(map(int, [kmoca_df.mc_face, kmoca_df.mc_silks, kmoca_df.mc_school, kmoca_df.mc_pipe, kmoca_df.mc_yellow])))
         orientation = np.sum(list(map(int, [kmoca_df.mc_date, kmoca_df.mc_month,kmoca_df.mc_year, kmoca_df.mc_day, kmoca_df.mc_place, kmoca_df.mc_city])))
-
-        # model 예측(pentagon)
-        moca_data.extend([vssp, name, attention, language, abstraction, memory, orientation, kmoca_df.ms_pentagon])
+        pentagon = kmoca_df.ms_pentagon
+        
+        moca_data.extend([vssp, name, attention, language, abstraction, memory, orientation])
         moca_data = np.array([moca_data], dtype=float)
         
-        mocab_machin_result = np.round(model.mocab_LR(moca_data)[1], 2)
-        mocad_machin_result = np.round(model.mocad_LR(moca_data)[1], 2)
+        mocab_machin_result = model.mocab_LR(moca_data)[1]
+        mocad_machin_result = model.mocad_LR(moca_data)[1]
+        
+        # model 예측(pentagon)
+        if pentagon != '-':
+            moca_data.extend([pentagon])
+            mocab_pentagon_result = model.mocab_pentagon_LR(moca_data)[1]
+            mocad_pentagon_result = model.mocad_pentagon_LR(moca_data)[1]
+            
     
     age = int(info_df.age)
     edu = float(info_df.education)
