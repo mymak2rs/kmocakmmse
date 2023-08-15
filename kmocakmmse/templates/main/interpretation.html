@@ -17,16 +17,6 @@
     window.location.replace("/main/");
 </script>
 {% endif %}
-{% if request.session.machine %}
-{% if request.session.detail %}
-{% else %}
-<script>
-    alert('환자 정보를 입력해주세요.'); 
-    window.location.replace("/main/");
-</script>
-{% endif %}
-{% else %}
-{% endif %}
     
 <div class="table_div">
     <h5>Interpretation Of MoCA Test</h5>

@@ -180,6 +180,8 @@ def interpretation(request):
                 'moca_cutoff': int(cutoff_moca),
                 'mocab_machin_decision': False,
                 'mocad_machin_decision': False,
+                'mocab_pentagon_decision': False,
+                'mocad_pentagon_decision': False,
                 'machine': machine,
                }
     
@@ -189,9 +191,11 @@ def interpretation(request):
         context['cutoff_result'] = False
         
     if machine:
-        if int(kmoca_df.ms_pentagon) == 1:
+        if pentagon == '-':
+            context['pentagon'] = 'NA'
+        elif pentagon == '1':
             context['pentagon'] = 'pass'
-        elif int(kmoca_df.ms_pentagon) == 0:
+        else:
             context['pentagon'] = 'fail'
             
         if mocab_machin_result > 50:
