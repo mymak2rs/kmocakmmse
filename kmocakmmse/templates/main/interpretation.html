@@ -45,16 +45,16 @@
             <table class="table table-bordered border-dark">
                 <thead class="text-center">
                     <tr>
-                        <th scope="col">Methods of cognitive assessment</th>
                         <th scope="col">Cognitive groups</th>
+                        <th scope="col">Methods of cognitive assessment</th>
                         <th scope="col">Cutoff</th>
                         <th scope="col">Results: Cognitive diagnosis</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td scope="row" class="q">Age & education adjusted cutoffs</td>
-                        <td>PD-NC VS.<br><strong>PD-MCI or PDD</strong></td>
+                        <td rowspan="2" scope="row" class="q"><strong>PD-NC</strong><br> VS. <br>PD-MCI or PDD</td>
+                        <td style="text-align: left;"><strong>Cutoff</strong> with<br> age & education adjusted</td>
                         <td>{{ moca_cutoff }}</td>
                         {% if cutoff_result %}
                         <td class="r"><font color="#f89b00">Cognitive impairment</font></td>
@@ -63,8 +63,7 @@
                         {% endif %}
                     </tr>
                     <tr>
-                        <td scope="row" class="q">Machine learning with domain scores of MoCA</td>
-                        <td>PD-NC VS.<br><strong>PD-MCI or PDD</strong></td>
+                        <td scope="row" class="q"><strong>Machine learning</strong> with domain scores of MoCA</td>
                         <td>NA</td>
                         {% if machine %}
                         {% if mocab_machin_decision %}
@@ -77,8 +76,8 @@
                         {% endif %}
                     </tr>
                     <tr>
-                        <td scope="row" class="q">Age & education adjusted cutoffs</td>
-                        <td>PD-NC or <br>PD-MCI VS. <strong>PDD</strong></td>
+                        <td rowspan="2" scope="row" class="q">PD-NC or<br> PD-MCI<br> VS. <br><strong>PDD</strong></td>
+                        <td style="text-align: left;"><strong>Cutoff</strong> with<br> age & education adjusted</td>
                         <td>{{ moca_cutoff }}</td>
                         {% if cutoff_result %}
                         <td class="r"><font color="#f89b00">Cognitive impairment</font></td>
@@ -87,8 +86,7 @@
                         {% endif %}
                     </tr>
                     <tr>
-                        <td scope="row" class="q">Machine learning with domain scores of MoCA</td>
-                        <td>PD-NC or <br>PD-MCI VS. <strong>PDD</strong></td>
+                        <td scope="row" class="q"><strong>Machine learning</strong> with domain scores of MoCA</td>
                         <td>NA</td>
                         {% if machine %}
                         {% if mocad_machin_decision %}
