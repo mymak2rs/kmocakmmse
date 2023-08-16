@@ -24,22 +24,17 @@ html,body{
 }
 .info-input input[type=number]{
     margin-left: 5%;
-
 }
-.info-input input[type=text]{
-    margin-left: 5%;
-
+.info-input .input-group{
+    width: 105%;
 }
 .info-input select{
     margin-left: 5%;
-
 }
 .info-input .table>:not(caption)>*>* {
     vertical-align: baseline
 };
-input:invalid{
-    border-color: red;
-}
+
 @media screen and (max-width: 1650px){
     .info-input .blank{
         margin: -10px 0 0 1%;
@@ -47,39 +42,36 @@ input:invalid{
     .info-input input[type=number]{
         margin-left: 10%;
     }
-    .info-input input[type=text]{
+    .info-input select{
         margin-left: 10%;
     }
 }
 
-@media screen and (max-width: 1400px){
+@media screen and (max-width: 1296px){
     .info-input .blank{
-        margin: -10px 0 0 1%;
+        margin: -10px 0 0 40%;
     }
     .info-input input[type=number]{
-        margin-left: 10%;
+        margin-left: 5%;
     }
-    .info-input input[type=text]{
-        margin-left: 10%;
+    .info-input select{
+        margin-left: 5%;
     }
 }
-@media screen and (max-width: 1200px){
+@media screen and (max-width:1216px){ 
     .info-input .blank{
-        margin: -10px 0 0 2%;
-    }
-    .info-input input[type=number]{
-        margin-left: 5%;
-    }
-    .info-input input[type=text]{
-        margin-left: 5%;
+        margin: -10px 0 0 3%;
     }
 }
 @media screen and (max-width: 1000px){
     .info-input .blank{
-        margin: -10px 0 0 7%;
+        margin: -10px 0 0 3%;
     }
-    
+    .info-input input[type=number]{
+        margin-left: 5%;
+    }
 }
+
 @media screen and (max-width: 767px){
     .info-input .blank{
         margin: -20px 0 0 0;
@@ -96,25 +88,22 @@ input:invalid{
         text-align: center;
     }
     .info-input .info-input{
-        margin: auto;
+        margin: 0 auto;
         text-align: center;
-    }
-    .info-input input[type=text]{
-        width: 70%;
-        text-align: center;
-        margin:0 auto;
     }
     .info-input input[type=number]{
         width: 70%;
         text-align: center;
-        margin:0 auto;
     }
     .info-input .input-group{
         width: 70%;
         text-align: center;
-        margin:0 auto;
     }
-}
+    .info-input select{
+        width: 70%;
+        text-align: center;
+    }
+}   
 @media screen and (max-width: 439px) {
     .info-input .blank{
         margin: -20px 0 0 5%;
@@ -140,11 +129,6 @@ input:invalid{
     .info-input .info-input{
         margin: auto;
         text-align: center;
-    }
-    .info-input input[type=text]{
-        width: 70%;
-        text-align: center;
-        margin:0 auto;
     }
     .info-input input[type=number]{
         width: 70%;
