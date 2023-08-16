@@ -23,12 +23,14 @@ r.addEventListener('click', function(){
 });
 $(document).ready(function() {
     $('#kmoca_total').attr('min', 0);
+    $('#kmoca_total').attr('max', 30);
     $('#age').attr('min', 0);
     $('#id_edu_input').attr('min', 0);
     $('#sgds').attr('min', 0);
     $('#sgds').attr('max', 15);
-    $('#dia_duration').attr('min', 0);
+    $('#dia_duration').attr('min', 1);
     $('#hy').attr('min', 0);
+    $('#hy').attr('max', 5);
     $('#updrs').attr('min', 0);
 });
 $(document).ready(function() {

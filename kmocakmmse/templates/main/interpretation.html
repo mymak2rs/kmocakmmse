@@ -71,9 +71,9 @@
                         <td>NA</td>
                         {% if machine %}
                         {% if mocab_machin_decision %}
-                        <td class="r"><font color="#f89b00">Cognitive impairment<br>인지장애 확률 {{ mocab_machin_result }}%</font></td>
+                        <td class="r"><font color="#f89b00">Cognitive impairment<br>Probability {{ mocab_machin_result }}%</font></td>
                         {% else %}
-                        <td class="r"><font color="#01DF01">normal cognition<br>인지장애 확률 {{ mocab_machin_result }}%</font></td>
+                        <td class="r"><font color="#01DF01">normal cognition<br>Probability {{ mocab_machin_result }}%</font></td>
                         {% endif %}
                         {% else %}
                         <td>NA</td>
@@ -84,9 +84,9 @@
                         <td scope="row" class="q"><strong>Machine learning</strong> with domain scores of MoCA plus pentagon</td>
                         <td>NA</td>
                         {% if mocab_pentagon_decision %}
-                        <td class="r"><font color="#f89b00">Cognitive impairment<br>인지장애 확률 {{ mocab_pentagon_result }}%</font></td>
+                        <td class="r"><font color="#f89b00">Cognitive impairment<br>Probability {{ mocab_pentagon_result }}%</font></td>
                         {% else %}
-                        <td class="r"><font color="#01DF01">normal cognition<br>인지장애 확률 {{ mocab_pentagon_result }}%</font></td>
+                        <td class="r"><font color="#01DF01">normal cognition<br>Probability {{ mocab_pentagon_result }}%</font></td>
                         {% endif %}
                     </tr>
                     {% else %}
@@ -110,9 +110,9 @@
                         <td>NA</td>
                         {% if machine %}
                         {% if mocad_machin_decision %}
-                        <td class="r"><font color="red">dementia<br>치매 확률 {{ mocad_machin_result }}%</font></td>
+                        <td class="r"><font color="red">dementia<br>Probability {{ mocad_machin_result }}%</font></td>
                         {% else %}
-                        <td class="r"><font color="#01DF01">normal cognition<br>치매 확률 {{ mocad_machin_result }}%</font></td>
+                        <td class="r"><font color="#01DF01">normal cognition<br>Probability {{ mocad_machin_result }}%</font></td>
                         {% endif %}
                         {% else %}
                         <td>NA</td>
@@ -123,9 +123,9 @@
                         <td scope="row" class="q"><strong>Machine learning</strong> with domain scores of MoCA plus pentagon</td>
                         <td>NA</td>
                         {% if mocad_pentagon_decision %}
-                        <td class="r"><font color="red">dementia<br>치매 확률 {{ mocad_pentagon_result }}%</font></td>
+                        <td class="r"><font color="red">dementia<br>Probability {{ mocad_pentagon_result }}%</font></td>
                         {% else %}
-                        <td class="r"><font color="#01DF01">normal cognition<br>치매 확률 {{ mocad_pentagon_result }}%</font></td>
+                        <td class="r"><font color="#01DF01">normal cognition<br>Probability {{ mocad_pentagon_result }}%</font></td>
                         {% endif %}
                     </tr>
                     {% else %}

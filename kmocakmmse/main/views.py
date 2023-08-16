@@ -205,10 +205,7 @@ def interpretation(request):
                 context['mocad_pentagon_decision'] = True
             context['mocab_pentagon_result'] = str(mocab_pentagon_result)
             context['mocad_pentagon_result'] = str(mocad_pentagon_result)
-            
-        else:
-            context['pentagon'] = 'NA'
-            
+                        
         if mocab_machin_result > 50:
             context['mocab_machin_decision'] = True
         if mocad_machin_result > 50:

@@ -28,12 +28,11 @@
     width: 30%;
 }  
 .moca .question{
-    width: 30%;
-}
-.moca .score{
     width: 40%;
 }
-
+.moca .score{
+    width: 30%;
+}
 .moca td, th {
     text-align : center;
     vertical-align : middle;
@@ -42,14 +41,12 @@
 }
 
 .moca .KMoCA{
-    margin-bottom:0;
     text-align: center;
     vertical-align: middle;
 }
 
 .moca div{
     width:100%;
-    
 }
 
 .moca div.left{
@@ -85,7 +82,8 @@
     vertical-align: middle;
 }
 .moca ul{
-    margin : 0 auto;
+    margin: 0 auto;
+    padding: 0;
 }
 @media screen and (max-width: 1000px) {
     .moca div.left{

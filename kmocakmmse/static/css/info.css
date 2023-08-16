@@ -33,6 +33,20 @@ html,body{
 .info-input .table>:not(caption)>*>* {
     vertical-align: baseline
 };
+input:invalid{
+    border-color: red;
+}
+@media screen and (max-width: 1650px){
+    .info-input .blank{
+        margin: -10px 0 0 1%;
+    }
+    .info-input input[type=number]{
+        margin-left: 10%;
+    }
+    .info-input input[type=text]{
+        margin-left: 10%;
+    }
+}
 
 @media screen and (max-width: 1400px){
     .info-input .blank{

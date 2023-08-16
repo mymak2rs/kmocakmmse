@@ -1,4 +1,6 @@
+from typing import Any, Mapping, Optional, Type, Union
 from django import forms
+from django.forms.utils import ErrorList
 import main.module.choice as choice
 
 class PatientForm(forms.Form):    
@@ -24,7 +26,7 @@ class PatientForm(forms.Form):
                 'id': 'age'
             }
         ),
-        error_messages={'required': 'Please enter your age.'}
+        error_messages={'required': 'Please input your age.'}
     )
 
     education = forms.FloatField(
@@ -37,7 +39,7 @@ class PatientForm(forms.Form):
                 'id': 'edu'
             }
         ),
-        error_messages={'required': 'Please enter your education.'}
+        error_messages={'required': 'Please input your education.'}
     )
 
     edu_input = forms.FloatField(
@@ -89,7 +91,7 @@ class PatientForm(forms.Form):
         widget=forms.NumberInput(
             attrs={
                 'class': 'dia_duration',
-                'placeholder': '00 개월',
+                'placeholder': '00 months',
                 'id': 'dia_duration'
             }
         )
@@ -112,7 +114,7 @@ class PatientForm(forms.Form):
         widget=forms.NumberInput(
             attrs={
                 'class': 'hy',
-                'placeholder': 'H&Y 척도 입력',
+                'placeholder': 'H&Y stage',
                 'id': 'hy'
             }
         )
@@ -123,7 +125,7 @@ class PatientForm(forms.Form):
         widget=forms.NumberInput(
             attrs={
                 'class': 'updrs',
-                'placeholder': 'Motor UPDRS 점수 입력',
+                'placeholder': 'Motor UPDRS score',
                 'id': 'updrs'
             }
         )
@@ -134,11 +136,16 @@ class PatientForm(forms.Form):
         widget=forms.NumberInput(
             attrs={
                 'class': 'sgds',
-                'placeholder': 'SGDS 점수 입력',
+                'placeholder': 'SGDS score',
                 'id': 'sgds'
             }
         )
     )
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.error_messages = {'required':'The field is required'}
 
     class Meta:
         fields = [
@@ -181,7 +188,7 @@ class PatientForm(forms.Form):
         if (diag_duration != None) and (age < diag_duration/12):
             return self.add_error('age', '나이가 유병기간보다 적습니다.')
     
-        if (diag_duration != None) and (diag_duration < 0):
+        if (diag_duration != None) and (diag_duration < 1):
             return self.add_error('diag_duration', '유병기간을 정확히 입력해주세요.')
 
         if (age < education) and (education != 999):
@@ -340,7 +347,7 @@ class KMoCAForm(forms.Form):
         widget=forms.NumberInput(
             attrs = {
                 'class' : 'KMoCA',
-                'placeholder':'enter the score(0-5)',
+                'placeholder':'input score (0-5)',
                 'id' : 'KMoCA9'
             }
         ),
@@ -353,7 +360,7 @@ class KMoCAForm(forms.Form):
         widget=forms.NumberInput(
             attrs = {
                 'class' : 'KMoCA',
-                'placeholder':'enter the score(0-5)',
+                'placeholder':'input score (0-5)',
                 'id' : 'KMoCA10'
             }
         ),
@@ -528,7 +535,7 @@ class KMoCAForm(forms.Form):
         error_messages={'required': '점수를 선택해주세요.'}
     )
     mc_yellow = forms.CharField(
-        label='Red',
+        label='Red(노랑)',
         required=True,
         widget=forms.RadioSelect(
             choices=choice.CHOICE_SCORE,
@@ -547,7 +554,7 @@ class KMoCAForm(forms.Form):
         widget=forms.NumberInput(
             attrs = {
                 'class' : 'KMoCA',
-                'placeholder':'enter the score(0-5)',
+                'placeholder':'input score (0-5)',
                 'id' : 'KMoCA25'
             }
         ),
@@ -560,7 +567,7 @@ class KMoCAForm(forms.Form):
         widget=forms.NumberInput(
             attrs = {
                 'class' : 'KMoCA',
-                'placeholder':'enter the score(0-5)',
+                'placeholder':'input score (0-5)',
                 'id' : 'KMoCA26'
             }
         ),
@@ -759,7 +766,6 @@ class KMoCAForm(forms.Form):
         if (any('' == i for i in KMoCAList) and any(KMoCAList)):
             return self.add_error('mc_atm','모든 K-MoCA 항목을 입력해 주세요')
         elif (mc_score != '') and (sum(map(int, kmoca_details)) != int(mc_score)):
-            print('aklsd12421421kgdsahli')
             return self.add_error('mc_score', 'K-MoCA 총점을 확인해주세요.')
         elif (mc_re_1!=None) and (int(mc_re_1)<0 or int(mc_re_1)>=6):
             return self.add_error('mc_re_1','K-MoCA 기억력 즉각회상 1차 점수를 확인해주세요.(0~5 숫자만 입력해주세요)')
