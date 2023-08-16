@@ -30,6 +30,10 @@ html,body{
     margin-left: 5%;
 
 }
+.info-input select{
+    margin-left: 5%;
+
+}
 .info-input .table>:not(caption)>*>* {
     vertical-align: baseline
 };

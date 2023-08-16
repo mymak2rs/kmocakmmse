@@ -112,7 +112,8 @@ class PatientForm(forms.Form):
     hy_stage = forms.FloatField(
          label='Hoehn & Yahr stage',
         required=False,
-        widget=forms.NumberInput(
+        widget=forms.Select(
+            choices=choice.CHOICE_HY,
             attrs={
                 'class': 'hy',
                 'placeholder': 'H&Y stage',
@@ -206,10 +207,7 @@ class PatientForm(forms.Form):
 
         if education < 0:
             return self.add_error('education', '학력을 정확히 입력해주세요.')
-    
-        if (hy_stage != None) and (hy_stage < 1 or hy_stage > 5):
-            return self.add_error('hy_stage', 'H&Y 척도를 정확히 입력해주세요.(1 이상 5 이하)')
-    
+        
         if (motor_updrs_score != None) and (motor_updrs_score < 0 or motor_updrs_score > 200):
             return self.add_error('motor_updrs_score', 'Motor UPDRS 점수를 확인해주세요.')
 
