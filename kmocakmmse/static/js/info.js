@@ -1,6 +1,6 @@
-document.querySelector("#edu_0").checked = true;
+document.querySelector("#edu_2").checked = true;
 
-if(document.querySelector("#edu_0").checked){
+if(document.querySelector("#edu_2").checked){
     $('#input-edu_1').show();
 }else{
     $('#input-edu_1').hide();
@@ -12,7 +12,7 @@ var park_radios = document.querySelectorAll('[name=parkinson_disease]');
 Array.from(radios).forEach(function(r){
 r.addEventListener('click', function(){
     var eduEl = document.getElementById('edu');
-    if((this.id == 'edu_0') ){
+    if((this.id == 'edu_2') ){
         $('#input-edu_1').show();
     }
     else{

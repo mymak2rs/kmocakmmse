@@ -36,5 +36,5 @@ def mocad_pentagon_LR(input):
 
 def mocad_LR(input):
     model = joblib.load('D:/DBLab/kmocakmmse/kmocakmmse/kmocakmmse/main/regression/datasetD/best_model_d.pkl')
-    predict = model.predict_proba(input).round(4)*100
+    predict = np.round(model.predict_proba(input)*100, 2)
     return predict.ravel()

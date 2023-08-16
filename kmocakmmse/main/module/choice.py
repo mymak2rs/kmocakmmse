@@ -14,7 +14,7 @@ CHOICE_HAND = (
     ('R', '오른손'), ('L', '왼손'), ('B', '양손')
 )
 CHOICE_EDU = (
-    (999.0, 'years'), (0.5, 'Out-of-school literacy'), (0.0, 'Illiteracy')
+    (0.0, 'Illiteracy'), (0.5, 'Out-of-school literacy'), (999.0, 'years')
 )
 CHOICE_SCORE = (
     ('0', '0'),('1','1')
