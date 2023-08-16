@@ -93,16 +93,16 @@
                     {% endif %}
                     <tr>
                         {% if pentagon == 'NA' %}
-                        <td rowspan="2" scope="row" class="q">PD-NC or<br> PD-MCI<br> VS. <br><strong>PDD</strong></td>
+                        <td rowspan="2" scope="row" class="q">PD-NC or PD-MCI<br> VS. <br><strong>PDD</strong></td>
                         {% else %}
-                        <td rowspan="3" scope="row" class="q">PD-NC or<br> PD-MCI<br> VS. <br><strong>PDD</strong></td>
+                        <td rowspan="3" scope="row" class="q">PD-NC or PD-MCI<br> VS. <br><strong>PDD</strong></td>
                         {% endif %}
                         <td style="text-align: left;"><strong>Cutoff</strong> with<br> age & education adjusted</td>
                         <td>{{ moca_cutoff }}</td>
                         {% if cutoff_result %}
                         <td class="r"><font color="red">PDD</font></td>
                         {% else %}
-                        <td class="r"><font color="#01DF01">PD-NC</font></td>
+                        <td class="r"><font color="#01DF01">PD-NC or PD-MCI</font></td>
                         {% endif %}
                     </tr>
                     <tr>
@@ -112,7 +112,7 @@
                         {% if mocad_machin_decision %}
                         <td class="r"><font color="red">PDD<br>Prob. {{ mocad_machin_result }}%</font></td>
                         {% else %}
-                        <td class="r"><font color="#01DF01">PD-NC<br>Prob. {{ mocad_machin_result }}%</font></td>
+                        <td class="r"><font color="#01DF01">PD-NC or PD-MCI<br>Prob. {{ mocad_machin_result }}%</font></td>
                         {% endif %}
                         {% else %}
                         <td>NA</td>
@@ -125,7 +125,7 @@
                         {% if mocad_pentagon_decision %}
                         <td class="r"><font color="red">PDD<br>Prob. {{ mocad_pentagon_result }}%</font></td>
                         {% else %}
-                        <td class="r"><font color="#01DF01">PD-NC<br>Prob. {{ mocad_pentagon_result }}%</font></td>
+                        <td class="r"><font color="#01DF01">PD-NC or PD-MCI<br>Prob. {{ mocad_pentagon_result }}%</font></td>
                         {% endif %}
                     </tr>
                     {% else %}
