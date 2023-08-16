@@ -146,6 +146,7 @@ def interpretation(request):
         moca_data = moca_data_li.copy()
         pentagon_data = moca_data_li.copy()
 
+        # subtotal 계산
         vssp = np.sum(list(map(int,[kmoca_df.mc_atm, kmoca_df.mc_cube, kmoca_df.mc_clock_cont, kmoca_df.mc_clock_num, kmoca_df.mc_clock_hands])))
         name = np.sum(list(map(int,[kmoca_df.mc_lion, kmoca_df.mc_bat, kmoca_df.mc_camel])))
         attention = np.sum(list(map(int, [kmoca_df.mc_forward,kmoca_df.mc_backward, kmoca_df.mc_vigilance, kmoca_df.mc_serial_7s])))
@@ -166,13 +167,15 @@ def interpretation(request):
         
         moca_data = np.array([moca_data], dtype=float)
         
+        # model 예측(pentagon x)
         mocab_machin_result = model.mocab_LR(moca_data)[1]
         mocad_machin_result = model.mocad_LR(moca_data)[1]
-    
+        
     age = int(info_df.age)
-    edu = float(info_df.education)
+    edu = float(info_df.education) if info_df.education[0] == 0.5 else int(info_df.education)
     moca_score = int(info_df.kmoca_total) if cutoff else int(kmoca_df.mc_score)
     
+    # cutoff 계산
     cutoff_moca, moca_zscore = cutoff_norm.MoCA_cutoff(age, edu, moca_score)
     
     context = {

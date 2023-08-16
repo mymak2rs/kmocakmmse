@@ -32,6 +32,7 @@ $(document).ready(function() {
     $('#hy').attr('min', 0);
     $('#hy').attr('max', 5);
     $('#updrs').attr('min', 0);
+    $('#updrs').attr('max', 200);
 });
 $(document).ready(function() {
     $('#kmoca_total, #age, #id_edu_input, #sgds, #dia_duration, #hy, #updrs').on('change', function() {

@@ -2,6 +2,7 @@ from typing import Any, Mapping, Optional, Type, Union
 from django import forms
 from django.forms.utils import ErrorList
 import main.module.choice as choice
+from django.utils.safestring import mark_safe
 
 class PatientForm(forms.Form):    
     sex = forms.CharField(
@@ -209,7 +210,7 @@ class PatientForm(forms.Form):
         if (hy_stage != None) and (hy_stage < 1 or hy_stage > 5):
             return self.add_error('hy_stage', 'H&Y 척도를 정확히 입력해주세요.(1 이상 5 이하)')
     
-        if (motor_updrs_score != None) and (motor_updrs_score < 0):
+        if (motor_updrs_score != None) and (motor_updrs_score < 0 or motor_updrs_score > 200):
             return self.add_error('motor_updrs_score', 'Motor UPDRS 점수를 확인해주세요.')
 
         if (sgds_score != None) and (sgds_score < 0 or sgds_score > 15):
@@ -315,7 +316,7 @@ class KMoCAForm(forms.Form):
         error_messages={'required': '점수를 선택해주세요.'}
     )
     mc_bat = forms.CharField(
-        label='Rhino',
+        label='Rhino (박쥐)',
         required=True,
         widget=forms.RadioSelect(
             choices=choice.CHOICE_SCORE,
@@ -419,7 +420,7 @@ class KMoCAForm(forms.Form):
         error_messages={'required': '점수를 선택해주세요.'}
     )
     mc_sentence_1 = forms.CharField(
-        label='repetition 1',
+        label='repetition 1 (칼날같이...)',
         required=True,
         widget=forms.RadioSelect(
             choices=choice.CHOICE_SCORE,
@@ -432,7 +433,7 @@ class KMoCAForm(forms.Form):
         error_messages={'required': '점수를 선택해주세요.'}
     )
     mc_sentence_2 = forms.CharField(
-        label='repetition 2',
+        label='repetition 2  (스물 일곱...)',
         required=True,
         widget=forms.RadioSelect(
             choices=choice.CHOICE_SCORE,
@@ -445,7 +446,7 @@ class KMoCAForm(forms.Form):
         error_messages={'required': '점수를 선택해주세요.'}
     )
     mc_fluency = forms.CharField(
-        label='Number of words',
+        label= mark_safe('Verbal fluency (Number of words) <br> ("ㄱ"으로 시작하는 단어)'),
         required=True,
         widget=forms.NumberInput(
             attrs = {
@@ -457,7 +458,7 @@ class KMoCAForm(forms.Form):
         error_messages={'required': '갯수를 입력해주세요.'}
     )
     mc_abstraction_1 = forms.CharField(
-        label='train-bicycle',
+        label='train-bicycle (기차 - 비행기)',
         required=True,
         widget=forms.RadioSelect(
             choices=choice.CHOICE_SCORE,
@@ -470,7 +471,7 @@ class KMoCAForm(forms.Form):
         error_messages={'required': '점수를 선택해주세요.'}
     )
     mc_abstraction_2 = forms.CharField(
-        label='watch-ruler',
+        label='watch-ruler (시계 - 저울)',
         required=True,
         widget=forms.RadioSelect(
             choices=choice.CHOICE_SCORE,
@@ -483,7 +484,7 @@ class KMoCAForm(forms.Form):
         error_messages={'required': '점수를 선택해주세요.'}
     )
     mc_face = forms.CharField(
-        label='Face',
+        label='Face (얼굴)',
         required=True,
         widget=forms.RadioSelect(
             choices=choice.CHOICE_SCORE,
@@ -496,7 +497,7 @@ class KMoCAForm(forms.Form):
         error_messages={'required': '점수를 선택해주세요.'}
     )
     mc_silks = forms.CharField(
-        label='Velvet',
+        label='Velvet (비단)',
         required=True,
         widget=forms.RadioSelect(
             choices=choice.CHOICE_SCORE,
@@ -509,7 +510,7 @@ class KMoCAForm(forms.Form):
         error_messages={'required': '점수를 선택해주세요.'}
     )
     mc_school = forms.CharField(
-        label='Church',
+        label='Church (학교)',
         required=True,
         widget=forms.RadioSelect(
             choices=choice.CHOICE_SCORE,
@@ -522,7 +523,7 @@ class KMoCAForm(forms.Form):
         error_messages={'required': '점수를 선택해주세요.'}
     )
     mc_pipe = forms.CharField(
-        label='Daisy',
+        label='Daisy (피리)',
         required=True,
         widget=forms.RadioSelect(
             choices=choice.CHOICE_SCORE,
@@ -535,7 +536,7 @@ class KMoCAForm(forms.Form):
         error_messages={'required': '점수를 선택해주세요.'}
     )
     mc_yellow = forms.CharField(
-        label='Red(노랑)',
+        label='Red (노랑)',
         required=True,
         widget=forms.RadioSelect(
             choices=choice.CHOICE_SCORE,
@@ -549,7 +550,7 @@ class KMoCAForm(forms.Form):
     )
 
     mc_de_1 = forms.IntegerField(
-        label='Recall score: cued recall',
+        label='Recall score: Cued recall',
         required=False,
         widget=forms.NumberInput(
             attrs = {

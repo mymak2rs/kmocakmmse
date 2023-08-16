@@ -1,17 +1,29 @@
 {% extends "main/base.html" %}
+{% load bootstrap5 %} 
+{% load static %}
+
 {% block title %} K-MoCA {% endblock %}
 
 {% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 {% endblock %}
 
 {% block content %}
 <div style="text-align: center; width: 100%; margin: 4rem auto">
-    <h1>MoCA: Screening for Cognitive Dysfunction</h1>
+    <h1>Screening of Cognitive Dysfunction in Parkinson’s Disease <br>
+        Using Montreal Cognitive Assessment (MoCA)</h1>
     <form action="" method="POST" id="my-form">
         {% csrf_token %}
         <a href="{% url 'myapp:info' %}"><button type="submit" class="btn btn-dark rounded-pill md-3" id="cutoff" name="cutoff">Cutoff method</button></a>
         <a href="{% url 'myapp:info' %}"><button type="submit" class="btn btn-dark rounded-pill md-3" id="machin" name="machin">Machine learning</button></a>
     </form>
+    <div id="explain" class="explain">
+        This website is powered by the Database Lab. in Hallym University &Yonsei Beyond Lab. <br>
+        in Yongin Severance Hospital of Yonsei university college of Medicine.
+    </div>
     
+
+
+
 </div>
 {% endblock %}
