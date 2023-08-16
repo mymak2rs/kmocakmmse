@@ -132,7 +132,12 @@
                     {% endif %}
                     <tr>
                         <td colspan="4" scope="row" class="q">Abbreviations: PD, Parkinson’s disease; PD-NC, PD with normal cognition; PD-MCI, 
-                            PD with mild cognitive impairment; PDD, PD with dementia; NA, not applicable; MoCA, Montreal Cognitive Assessment. Prob., Probability</td>
+                            PD with mild cognitive impairment; PDD, PD with dementia; NA, not applicable; MoCA, Montreal Cognitive 
+                            {% if machine %}
+                            Assessment; Prob., Probability.</td>
+                            {% else %}
+                            Assessment.
+                            {% endif %}
                     </tr>
                 </tbody>
             </table><br>

@@ -58,7 +58,23 @@ html,body{
         margin-left: 5%;
     }
 }
-@media screen and (max-width:1216px){ 
+@media screen and (max-width: 1680px){
+    .info-input .blank{
+        margin: -10px 0 0 1%;
+    }
+    .info-input input[type=number]{
+        margin-left: 5%;
+    }
+    .info-input select{
+        margin-left: 5%;
+    }
+}
+@media screen and (max-width: 1314px){
+    .info-input .blank{
+        margin: -10px 0 0 40%;
+    }
+}
+@media screen and (max-width:1235px){ 
     .info-input .blank{
         margin: -10px 0 0 3%;
     }
