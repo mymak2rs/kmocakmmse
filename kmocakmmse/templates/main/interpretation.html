@@ -54,9 +54,9 @@
                 <tbody>
                     <tr>
                         {% if pentagon == 'NA' %}
-                        <td rowspan="2" scope="row" class="q"><strong>PD-NC</strong><br> VS. <br>PD-MCI or PDD</td>
+                        <td rowspan="2" scope="row" class="q">PD-NC<br> VS. <br><strong>PD-MCI or PDD</td></strong>
                         {% else %}
-                        <td rowspan="3" scope="row" class="q"><strong>PD-NC</strong><br> VS. <br>PD-MCI or PDD</td>
+                        <td rowspan="3" scope="row" class="q">PD-NC<br> VS. <br><strong>PD-MCI or PDD</strong></td>
                         {% endif %}
                         <td style="text-align: left;"><strong>Cutoff</strong> with<br> age & education adjusted</td>
                         <td>{{ moca_cutoff }}</td>
@@ -134,7 +134,7 @@
                         <td colspan="4" scope="row" class="q">Abbreviations: PD, Parkinson’s disease; PD-NC, PD with normal cognition; PD-MCI, 
                             PD with mild cognitive impairment; PDD, PD with dementia; NA, not applicable; MoCA, Montreal Cognitive 
                             {% if machine %}
-                            Assessment; Prob., Probability.</td>
+                            Assessment; Prob., probability.</td>
                             {% else %}
                             Assessment.
                             {% endif %}
