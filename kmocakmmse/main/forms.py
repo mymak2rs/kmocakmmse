@@ -176,12 +176,12 @@ class PatientForm(forms.Form):
         sgds_score = cleaned_data.get('sgds_score','')
 
         if (education == 999) and (edu_input == None):
-            return self.add_error('edu_input', 'Please enter your education.')
+            return self.add_error('edu_input', 'Please input your education.')
                     
         if (diag_duration != None) and (age < diag_duration/12):
             return self.add_error('age', '나이가 유병기간보다 적습니다.')
     
-        if (diag_duration != None) and (diag_duration <= 0):
+        if (diag_duration != None) and (diag_duration < 0):
             return self.add_error('diag_duration', '유병기간을 정확히 입력해주세요.')
 
         if (age < education) and (education != 999):
@@ -209,7 +209,7 @@ class PatientForm(forms.Form):
             return self.add_error('sgds_score', 'SGDS 점수를 확인해주세요. (0 이상 15이하)')
 
         if (kmoca_total != None) and (kmoca_total > 30) | (kmoca_total < 0):
-            return self.add_error('kmoca_total', 'K-MoCA 점수를 확인해주세요. (0 이상 30이하)')
+            return self.add_error('kmoca_total', 'MoCA score must be less than or equal to 30.')
     
         
         self.sex = sex
@@ -502,7 +502,7 @@ class KMoCAForm(forms.Form):
         error_messages={'required': '점수를 선택해주세요.'}
     )
     mc_school = forms.CharField(
-        label='Churh',
+        label='Church',
         required=True,
         widget=forms.RadioSelect(
             choices=choice.CHOICE_SCORE,

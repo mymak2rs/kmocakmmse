@@ -50,8 +50,7 @@ td{
 }
 @media screen and (max-width: 990px) {
   .table_div{
-      width:80%;
-      margin: 1rem auto;
+      width:75%;
       font-size:0.7rem;
     }
 }
