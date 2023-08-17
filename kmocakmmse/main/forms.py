@@ -132,17 +132,6 @@ class PatientForm(forms.Form):
             }
         )
     )
-    sgds_score = forms.IntegerField(
-        label='Short version of geriatric depression scale (SGDS) score',
-        required=False,
-        widget=forms.NumberInput(
-            attrs={
-                'class': 'sgds',
-                'placeholder': 'SGDS score',
-                'id': 'sgds'
-            }
-        )
-    )
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -162,7 +151,6 @@ class PatientForm(forms.Form):
             'sgds_bdi_depression',
             'hy_stage',
             'motor_updrs_score',
-            'sgds_score',
             'kmoca_total',
         ]
 
@@ -182,7 +170,6 @@ class PatientForm(forms.Form):
         depression = cleaned_data.get('depression', '')
         hy_stage = cleaned_data.get('hy_stage','')
         motor_updrs_score = cleaned_data.get('motor_updrs_score','')
-        sgds_score = cleaned_data.get('sgds_score','')
 
         if (education == 999) and (edu_input == None):
             return self.add_error('edu_input', 'Please input your education.')
@@ -211,9 +198,6 @@ class PatientForm(forms.Form):
         if (motor_updrs_score != None) and (motor_updrs_score < 0 or motor_updrs_score > 200):
             return self.add_error('motor_updrs_score', 'Motor UPDRS 점수를 확인해주세요.')
 
-        if (sgds_score != None) and (sgds_score < 0 or sgds_score > 15):
-            return self.add_error('sgds_score', 'SGDS 점수를 확인해주세요. (0 이상 15이하)')
-
         if (kmoca_total != None) and (kmoca_total > 30) | (kmoca_total < 0):
             return self.add_error('kmoca_total', 'MoCA score must be less than or equal to 30.')
     
@@ -230,7 +214,6 @@ class PatientForm(forms.Form):
         self.sgds_bdi_depression = sgds_bdi_depression
         self.hy_stage = hy_stage
         self.motor_updrs_score = motor_updrs_score
-        self.sgds_score = sgds_score
         self.kmoca_total = kmoca_total
         
         

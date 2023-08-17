@@ -50,7 +50,6 @@ def info(request):
             patient_form.fields['patient_cog_compl'].required = True
             patient_form.fields['caregiver_cog_compl'].required = True
             patient_form.fields['sgds_bdi_depression'].required = True
-            patient_form.fields['sgds_score'].required = True
             patient_form.fields['diag_duration'].required = True
             patient_form.fields['hy_stage'].required = True
             patient_form.fields['motor_updrs_score'].required = True

@@ -120,6 +120,26 @@ html,body{
         text-align: center;
     }
 }   
+@media screen and (max-width: 766px){
+    .info-input .blank{
+        margin: -10px 0 0 70%;
+    }
+    .info-input #id_edu_input{
+        width: 80%;
+    }
+}
+
+
+@media screen and (max-width: 719px){
+    .info-input .blank{
+        margin: -10px 0 0 30%;
+    }
+    .info-input #id_edu_input{
+        width: 50%;
+    }
+}
+
+
 @media screen and (max-width: 439px) {
     .info-input .blank{
         margin: -20px 0 0 5%;

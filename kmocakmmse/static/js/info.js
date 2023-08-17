@@ -7,11 +7,9 @@ if(document.querySelector("#edu_2").checked){
 }
 
 var radios = document.querySelectorAll('[name=education]');
-var park_radios = document.querySelectorAll('[name=parkinson_disease]');
 
 Array.from(radios).forEach(function(r){
 r.addEventListener('click', function(){
-    var eduEl = document.getElementById('edu');
     if((this.id == 'edu_2') ){
         $('#input-edu_1').show();
     }
