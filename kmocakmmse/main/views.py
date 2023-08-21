@@ -159,7 +159,7 @@ def interpretation(request):
         
         # model 예측(pentagon)
         if pentagon != '-':
-            pentagon_data.extend([vssp, name, attention, kmoca_df.ms_pentagon, language, abstraction, memory, orientation])
+            pentagon_data.extend([vssp, name, attention, language, abstraction, memory, orientation, kmoca_df.ms_pentagon])
             pentagon_data = np.array([pentagon_data], dtype=float)
             mocab_pentagon_result = model.mocab_pentagon_LR(pentagon_data)[1]
             mocad_pentagon_result = model.mocad_pentagon_LR(pentagon_data)[1]
