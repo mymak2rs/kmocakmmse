@@ -201,20 +201,34 @@ def interpretation(request):
                 context['pentagon'] = 'pass'
             else:
                 context['pentagon'] = 'fail'
+                
             if mocab_pentagon_result > 50:
                 context['mocab_pentagon_decision'] = True
+                context['mocab_pentagon_result'] = str(mocab_pentagon_result)
+            else:
+                context['mocab_pentagon_result'] = str(1-mocab_pentagon_result)
+                
             if mocad_pentagon_result > 50:
                 context['mocad_pentagon_decision'] = True
-            context['mocab_pentagon_result'] = str(mocab_pentagon_result)
-            context['mocad_pentagon_result'] = str(mocad_pentagon_result)
+                context['mocad_pentagon_result'] = str(mocad_pentagon_result)
+            else:
+                context['mocad_pentagon_result'] = str(1-mocad_pentagon_result)
+            
+            
                         
         if mocab_machin_result > 50:
             context['mocab_machin_decision'] = True
+            context['mocab_machin_result'] = str(mocab_machin_result)
+        else:
+            context['mocab_machin_result'] = str(1-mocab_machin_result)
+            
         if mocad_machin_result > 50:
             context['mocad_machin_decision'] = True
-    
-        context['mocab_machin_result'] = str(mocab_machin_result)
-        context['mocad_machin_result'] = str(mocad_machin_result)
+            context['mocad_machin_result'] = str(mocad_machin_result)
+        else:
+            context['mocad_machin_result'] = str(1-mocad_machin_result)
+        
+        
         
     
     return render(request, 'main/interpretation.html', context)
