@@ -206,13 +206,13 @@ def interpretation(request):
                 context['mocab_pentagon_decision'] = True
                 context['mocab_pentagon_result'] = str(mocab_pentagon_result)
             else:
-                context['mocab_pentagon_result'] = str(1-mocab_pentagon_result)
+                context['mocab_pentagon_result'] = str(100-mocab_pentagon_result)
                 
             if mocad_pentagon_result > 50:
                 context['mocad_pentagon_decision'] = True
                 context['mocad_pentagon_result'] = str(mocad_pentagon_result)
             else:
-                context['mocad_pentagon_result'] = str(1-mocad_pentagon_result)
+                context['mocad_pentagon_result'] = str(100-mocad_pentagon_result)
             
             
                         
@@ -220,13 +220,13 @@ def interpretation(request):
             context['mocab_machin_decision'] = True
             context['mocab_machin_result'] = str(mocab_machin_result)
         else:
-            context['mocab_machin_result'] = str(1-mocab_machin_result)
+            context['mocab_machin_result'] = str(100-mocab_machin_result)
             
         if mocad_machin_result > 50:
             context['mocad_machin_decision'] = True
             context['mocad_machin_result'] = str(mocad_machin_result)
         else:
-            context['mocad_machin_result'] = str(1-mocad_machin_result)
+            context['mocad_machin_result'] = str(100-mocad_machin_result)
         
         
         
