@@ -93,11 +93,7 @@ html,body{
         margin: -20px 0 0 0;
     }
     .info-input label{
-        text-align: center;
         padding-bottom: 5px;
-    }
-    .info-input #edu{
-        text-align: center;
     }
     .info-input .button{
         margin: 0 auto;
@@ -105,7 +101,6 @@ html,body{
     }
     .info-input .info-input{
         margin: 0 auto;
-        text-align: center;
     }
     .info-input input[type=number]{
         width: 70%;
@@ -129,27 +124,27 @@ html,body{
     }
 }
 
-
-@media screen and (max-width: 719px){
+@media screen and (max-width: 702px) {
     .info-input .blank{
-        margin: -10px 0 0 30%;
+        margin: -20px 0 0 0;
     }
     .info-input #id_edu_input{
-        width: 50%;
+        width: 40%;
     }
 }
 
+@media screen and (max-width: 624px){
+    .info-input #kmoca_total{
+        width: 50%;
+    }
+}
 
 @media screen and (max-width: 439px) {
     .info-input .blank{
         margin: -20px 0 0 5%;
     }
     .info-input label{
-        text-align: center;
         padding-bottom: 5px;
-    }
-    .info-input #edu{
-        text-align: center;
     }
     .info-input .button{
         width: 100%;
