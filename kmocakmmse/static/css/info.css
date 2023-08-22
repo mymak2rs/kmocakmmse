@@ -141,7 +141,7 @@ html,body{
 
 @media screen and (max-width: 439px) {
     .info-input .blank{
-        margin: -20px 0 0 5%;
+        margin: -20px 0 0 -20%;
     }
     .info-input label{
         padding-bottom: 5px;
