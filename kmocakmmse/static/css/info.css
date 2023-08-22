@@ -171,4 +171,9 @@ html,body{
         text-align: center;
         margin:0 auto;
     }
+    .info-input select{
+        width: 70%;
+        text-align: center;
+        margin:0 auto;
+    }
 }
