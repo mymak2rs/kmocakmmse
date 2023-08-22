@@ -34,7 +34,12 @@ html,body{
 .info-input .table>:not(caption)>*>* {
     vertical-align: baseline
 };
-
+.form-check-inline {
+    margin-right: 0;
+}
+.form-check {
+    padding-left: 1rem;
+}
 @media screen and (max-width: 1650px){
     .info-input .blank{
         margin: -10px 0 0 1%;
