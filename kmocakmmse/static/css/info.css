@@ -34,6 +34,10 @@ html,body{
 .info-input .table>:not(caption)>*>* {
     vertical-align: baseline
 };
+.info-input label{
+    white-space: normal;
+    display: block;
+};
 
 @media screen and (max-width: 1650px){
     .info-input .blank{
@@ -94,6 +98,7 @@ html,body{
     }
     .info-input label{
         padding-bottom: 5px;
+        width: 150%;
     }
     .info-input .button{
         margin: 0 auto;
@@ -145,6 +150,7 @@ html,body{
     }
     .info-input label{
         padding-bottom: 5px;
+        width: 150%;
     }
     .info-input .button{
         width: 100%;
