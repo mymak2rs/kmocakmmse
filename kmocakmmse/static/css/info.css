@@ -34,6 +34,10 @@ html,body{
 .info-input .table>:not(caption)>*>* {
     vertical-align: baseline
 };
+.info-input label{
+    white-space: normal;
+    display: block;
+};
 
 @media screen and (max-width: 1650px){
     .info-input .blank{
@@ -93,11 +97,8 @@ html,body{
         margin: -20px 0 0 0;
     }
     .info-input label{
-        text-align: center;
         padding-bottom: 5px;
-    }
-    .info-input #edu{
-        text-align: center;
+        width: 150%;
     }
     .info-input .button{
         margin: 0 auto;
@@ -105,7 +106,6 @@ html,body{
     }
     .info-input .info-input{
         margin: 0 auto;
-        text-align: center;
     }
     .info-input input[type=number]{
         width: 70%;
@@ -129,27 +129,28 @@ html,body{
     }
 }
 
-
-@media screen and (max-width: 719px){
+@media screen and (max-width: 702px) {
     .info-input .blank{
-        margin: -10px 0 0 30%;
+        margin: -20px 0 0 0;
     }
     .info-input #id_edu_input{
+        width: 40%;
+    }
+}
+
+@media screen and (max-width: 624px){
+    .info-input #kmoca_total{
         width: 50%;
     }
 }
 
-
 @media screen and (max-width: 439px) {
     .info-input .blank{
-        margin: -20px 0 0 5%;
+        margin: -20px 0 0 -20%;
     }
     .info-input label{
-        text-align: center;
         padding-bottom: 5px;
-    }
-    .info-input #edu{
-        text-align: center;
+        width: 150%;
     }
     .info-input .button{
         width: 100%;
@@ -172,6 +173,11 @@ html,body{
         margin:0 auto;
     }
     .info-input .input-group{
+        width: 70%;
+        text-align: center;
+        margin:0 auto;
+    }
+    .info-input select{
         width: 70%;
         text-align: center;
         margin:0 auto;
