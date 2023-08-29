@@ -1,24 +1,26 @@
 var radios = document.querySelector("#moca");
 var radios11 = radios.querySelectorAll('input[type=radio]');
-Array.from(radios11).forEach(function(r){
-    r.addEventListener('click', function(){
-        findTotal1();
-
-    });
+Array.from(radios11).forEach(function(r) {
+    r.addEventListener('click', findTotal1);
 });
 
-function findTotal1(){
+// KMoCA17 input에 input 이벤트 리스너 추가
+var inputField = document.getElementById('KMoCA17');
+inputField.addEventListener('input', findTotal1);
+
+function findTotal1() {
     let tot1 = 0;
     let radioList = document.querySelector("#moca > table").querySelectorAll("input[type=radio]:checked");
 
-    radioList.forEach(function(item, index, arr){
+    radioList.forEach(function(item) {
         tot1 += parseInt(item.value)
     })
 
-    var score17 = document.getElementById('KMoCA17').value;
-    if(score17>=6) tot1+=1;
+    var score17 = inputField.value;
+    if (score17 >= 6) tot1 += 1;
     document.getElementById('id_mc_score').value = tot1;
 }
+
 
 $(document).ready(function() {
     $('#KMoCA9').attr('min', 0);
