@@ -175,14 +175,15 @@ def interpretation(request):
     moca_score = int(info_df.kmoca_total) if cutoff else int(kmoca_df.mc_score)
     
     # cutoff 계산
-    cutoff_moca, moca_zscore = cutoff_norm.MoCA_cutoff(age, edu, moca_score)
+    bcutoff_moca, dcutoff_moca = cutoff_norm.MoCA_cutoff(age, edu, moca_score)
     
     context = {
                 'age': age,
                 'edu': edu,
                 'KMoCA': moca_score,
                 'pentagon': 'NA',
-                'moca_cutoff': int(cutoff_moca),
+                'bmoca_cutoff': int(bcutoff_moca),
+                'dmoca_cutoff': int(dcutoff_moca),
                 'mocab_machin_decision': False,
                 'mocad_machin_decision': False,
                 'mocab_pentagon_decision': False,
@@ -190,10 +191,15 @@ def interpretation(request):
                 'machine': machine,
                }
     
-    if cutoff_moca > moca_score:
-        context['cutoff_result'] = True
+    if bcutoff_moca > moca_score:
+        context['bcutoff_result'] = True
     else:
-        context['cutoff_result'] = False
+        context['bcutoff_result'] = False
+        
+    if dcutoff_moca > moca_score:
+        context['dcutoff_result'] = True
+    else:
+        context['dcutoff_result'] = False
         
     if machine:
         if pentagon != '-':

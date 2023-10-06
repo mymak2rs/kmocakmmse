@@ -59,8 +59,8 @@
                         <td rowspan="3" scope="row" class="q">PD-NC<br> VS. <br><strong>PD-MCI or PDD</strong></td>
                         {% endif %}
                         <td style="text-align: left;"><strong>Cutoff</strong> with<br> age & education adjusted</td>
-                        <td>{{ moca_cutoff }}</td>
-                        {% if cutoff_result %}
+                        <td>{{ bmoca_cutoff }}</td>
+                        {% if bcutoff_result %}
                         <td class="r"><font color="#f89b00">PD-MCI or PDD</font></td>
                         {% else %}
                         <td class="r"><font color="#01DF01">PD-NC</font></td>
@@ -98,11 +98,11 @@
                         <td rowspan="3" scope="row" class="q">PD-NC or PD-MCI<br> VS. <br><strong>PDD</strong></td>
                         {% endif %}
                         <td style="text-align: left;"><strong>Cutoff</strong> with<br> age & education adjusted</td>
-                        <td>{{ moca_cutoff }}</td>
-                        {% if cutoff_result %}
-                        <td class="r"><font color="red">PDD</font></td>
+                        <td>{{ dmoca_cutoff }}</td>
+                        {% if dcutoff_result %}
+                        <td class="r"><font color="#f89b00">PD-MCI or PDD</font></td>
                         {% else %}
-                        <td class="r"><font color="#01DF01">PD-NC or PD-MCI</font></td>
+                        <td class="r"><font color="#01DF01">PD-NC</font></td>
                         {% endif %}
                     </tr>
                     <tr>
