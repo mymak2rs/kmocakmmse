@@ -1,7 +1,7 @@
 settings.py
-criterion
-datasetB
-datasetD
+criterion/
+datasetB/
+datasetD/
 # Created by https://www.toptal.com/developers/gitignore/api/python,visualstudiocode,django
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,visualstudiocode,django
 
