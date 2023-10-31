@@ -20,21 +20,21 @@ kmoca_sum_target = ['K-MoCA_시공간/집행기능_1-가->5-마', 'K-MoCA_시공
 
 
 def mocab_pentagon_LR(input):
-    model = joblib.load('C:/DBLab/kmocakmmse/kmocakmmse/main/regression/datasetB/best_model_b_pentagon.pkl')
+    model = joblib.load('D:/DBLab/kmocakmmse/kmocakmmse/kmocakmmse/main/regression/datasetB/best_model_b_pentagon.pkl')
     predict = np.round(model.predict_proba(input)*100, 2)
     return predict.ravel()
 
 def mocab_LR(input):
-    model = joblib.load('C:/DBLab/kmocakmmse/kmocakmmse/main/regression/datasetB/best_model_b.pkl')
+    model = joblib.load('D:/DBLab/kmocakmmse/kmocakmmse/kmocakmmse/main/regression/datasetB/best_model_b.pkl')
     predict = np.round(model.predict_proba(input)*100, 2)
     return predict.ravel()
 
 def mocad_pentagon_LR(input):
-    model = joblib.load('C:/DBLab/kmocakmmse/kmocakmmse/main/regression/datasetD/best_model_d_pentagon.pkl')
+    model = joblib.load('D:/DBLab/kmocakmmse/kmocakmmse/kmocakmmse/main/regression/datasetD/best_model_d_pentagon.pkl')
     predict = np.round(model.predict_proba(input)*100, 2)
     return predict.ravel()
 
 def mocad_LR(input):
-    model = joblib.load('C:/DBLab/kmocakmmse/kmocakmmse/main/regression/datasetD/best_model_d.pkl')
+    model = joblib.load('D:/DBLab/kmocakmmse/kmocakmmse/kmocakmmse/main/regression/datasetD/best_model_d.pkl')
     predict = np.round(model.predict_proba(input)*100, 2)
     return predict.ravel()

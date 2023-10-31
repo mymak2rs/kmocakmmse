@@ -20,8 +20,8 @@ def MoCA_cutoff(age, edu, moca_score):
     Returns:
     - MoCA cutoff 점수
     """
-    bmoca_data = pd.read_csv('C:/DBLab/kmocakmmse/kmocakmmse/main/module/criterion/MoCA_NC_VS_MCI+PDD_중간나이 교육 별 분포 LR 추가_20230825.csv', encoding='cp949')
-    dmoca_data = pd.read_csv('C:/DBLab/kmocakmmse/kmocakmmse/main/module/criterion/MoCA_NC+MCI_VS_PDD_중간나이 교육 별 분포 LR 추가_20230825.csv', encoding='cp949')
+    bmoca_data = pd.read_csv('D:/DBLab/kmocakmmse/kmocakmmse/kmocakmmse/main/module/criterion/MoCA_NC_VS_MCI+PDD_중간나이 교육 별 분포 LR 추가_20230825.csv', encoding='cp949')
+    dmoca_data = pd.read_csv('D:/DBLab/kmocakmmse/kmocakmmse/kmocakmmse/main/module/criterion/MoCA_NC+MCI_VS_PDD_중간나이 교육 별 분포 LR 추가_20230825.csv', encoding='cp949')
 
     # A열, B열, C열의 모든 나이 값 추출
     all_ages = list(bmoca_data["중심 나이"].values) + list(bmoca_data[">=-5"].dropna().values) + list(bmoca_data["<+5"].dropna().values)
